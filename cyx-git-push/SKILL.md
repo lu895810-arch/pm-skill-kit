@@ -127,6 +127,8 @@ curl -s -H "Authorization: token $TOKEN" \
 4. **空仓库首推**：目标仓库零提交、无默认分支时，第一次 push 直接创建你本地所在分支名（如 `main`）。推之前 `git branch` 确认名字，别推错分支。
 5. **README / 关键文件漏传**：那次 `cp -a` 在 README 还没写进 bundle 时就跑了，远程一开始只有技能目录缺 README。对策：拷贝后、`git add` 前，用 `ls` 核对打包目录根确实有 README.md、.gitignore 等再提交。
 6. **`git clone` 只读成功但 push 报无凭据**：只读克隆不需要认证，别被它骗了——push 才是真要凭据的环节。
+7. **GitHub 不渲染仓库内的 HTML 文件**：README 里写"点 `index.html` 看双语页"，用户点开只见 HTML 源码——仓库内 HTML 一律按源码展示。对策：交付自包含 HTML 页时，另走静态托管（GitHub Pages 或 WorkBuddy 发布能力）拿到在线 URL，README 里的入口链接写在线地址，不写仓库内文件路径。
+8. **`/tmp` 路径跨命令调用不稳定**：某些执行环境里 `/tmp` 不保证指向同一位置，上一条命令写的文件下一条找不到。对策：临时文件写到具体的 Windows 绝对路径（如 `C:/Users/admin/AppData/Local/Temp/`），别依赖 `/tmp`。
 
 ## 七、给用户取令牌的引导话术（可直接用）
 

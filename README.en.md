@@ -13,6 +13,8 @@ Each skill is a standalone folder containing a `SKILL.md` plus scripts, template
 
 Each skill entry states three things: **what it does / what problem it solves / when to use it**, and is tagged **attribution** [Original] or [Adapted · original author].
 
+There are now 40+ `cyx-*` skills, and several of them share similar names. When a few skill descriptions all seem to fit and you can't tell which to use, check [SKILL-ROUTES.md](SKILL-ROUTES.md) at the repo root — a routing table organized by "deliverable → destination": first decide what you need to produce, then pick the skill.
+
 ## How to install
 
 Copy the skill folders you need into WorkBuddy's skills directory:
@@ -40,10 +42,18 @@ This group solves one thing: you hold a pile of raw material — whitepapers, we
 - **cyx-priority-need** — Requirements prioritization (P0–P3 + RICE scoring). Use it when you have a batch of requirements to grade and rank for requirement review, version planning, or backlog ordering. Output is an ordered verdict of "decision + rationale + risks", not whole-product planning.
 - **cyx-strcuture-need** — Product feature planning (four-layer architecture, module breakdown, priority matrix, MVP & roadmap, single-file HTML output). Use it to split a product into modules, define MVP scope and a roadmap, and take it to a kickoff review. Lighter than a PRD; no EARS engineering granularity required.
 - **cyx-original-need-md / cyx-original-need-html** — Original-requirement and feature-evolution analysis (same methodology, two output formats). Reverse-engineer the original requirements behind an existing product and map the evolution chain of "why it became what it is, what tension each version resolved". The md version feeds into later PRD and multi-format pipelines; the html version produces a viewable page directly. Best used as PRD input.
+- **cyx-bug-demand** — UI issue ledger (Excel workbook, three sheets: issue detail + statistics charts + screenshot evidence). Turns bugs and UX problems found in product screenshots into a continuously maintainable ledger that supports multi-round appending, sorting, and chart polish. Use it for test walkthroughs and acceptance sweeps — any "collecting issues" work.
+- **cyx-compare-code-micro-demand** — Feature-level / code-level comparison (single-file HTML). Compares two (or more) products module by module and turns each advantage of A over B into a "micro-requirement": current pain point → solution → actionable requirement → checkable acceptance criteria, plus B's catch-up list. Use it when you want to know "who to benchmark, what to borrow, how it lands as requirements".
+- **cyx-compare-macro-demand** — Macro comparison (single-file HTML). Compares two (or more) projects on positioning, users & scenarios, capability maturity, main-flow divergence, architecture, and engineering discipline; the output is a selection verdict, not per-item requirements. Use it to support "which one to pick" decisions — complements the micro-comparison above.
 
 ## 2. Research & reports
 
 - **cyx-research-report** — Industry / market research reports (HTML and Markdown dual-track output). It enforces hard rules: every data point must have a source, different sources must be labeled separately, numbers with different statistical calibers must not be added or compared directly, and writing is done from a briefing perspective with AI-flavor stripped out. For any report on market share, vendor comparison, or business-model surveys, use it to hold the "credible" baseline.
+- **cyx-github-search** — GitHub open-source ecosystem research (first-pass research). Produces a keyword matrix you can search with directly, a real repository list (separating "whole-site / product-level references" from "component-level reuse"), plus licensing and selection advice. Use it to survey what open-source options exist for a product category. (Upgraded successor of `cyx-search-github`, with a tightened trigger: loads only for first-pass research.)
+- **cyx-github-search-output** — Second-pass editing of a GitHub research draft. Use it when a research draft already exists and needs trimming, reordering, and caliber fixes into a publish-ready report; do not trigger it for first-pass research — that's `cyx-github-search`. The two skills pair up front-to-back: "research" and "polish" stay separate.
+- **cyx-github-analysis** — Dual-perspective (product × technology) analysis of a single GitHub repository (single-file dark HTML). Produces core positioning, pain-point→design mapping, a product view (main flow / highlights / maturity), a technology view (architecture / mechanism trade-offs / engineering discipline), and a verdict. Use it to write an analysis report on one open-source project.
+- **cyx-folder-analysis** — Dual-perspective (product × technology) analysis of a local folder. Applies the same dual-view analysis to desktop software, project directories, unreleased builds, or unzip-and-run packages, producing the same dark HTML report. Use it when there's no GitHub repo, only local files — same framework as `cyx-github-analysis`.
+- **cyx-multi-project-analysis** — Batch verification and cross-comparison of multiple GitHub repositories. Metadata is verified one by one via the GitHub API; repos are organized by "position in the production pipeline" rather than stars; outputs a dark HTML report with four linked sections (production-flow diagram, comparison table, per-repo details, selection advice). Use it when you hold a batch of similar repos and need to survey and choose.
 
 ## 3. Courses & courseware
 
@@ -60,25 +70,46 @@ A complete short-drama production line, from story outline through storyboard an
 - **cyx-shuohao-storyboard** (downstream) — Storyboard. Splits the script into storyboard shots; requires the script to run.
 - **cyx-shuohao-art** (companion) — Art and scene image generation. Generates scene images matching each character's style; prompt-level bans on character names keep compositing from cross-contaminating files.
 
-## 5. Document processing & alignment
+## 5. Short-drama creation pipeline (the short-drama series)
+
+A second, fuller short-drama / comic-drama production line: novels or ideas go in, finished video comes out. Each skill owns one creation stage and hands off through a filesystem project directory — each skill does only its stage, and its output feeds the next. Compared with the "Shuohao" series above, this pipeline is finer-grained and covers image/video prompts, voiceover production, and final editing.
+
+- **short-drama** (controller) — Project init and resume. Sets up a short-drama or comic-drama project on the filesystem with five-document routing, a local Dashboard, production-form (art style) and Look Development decisions. Start or resume a project here.
+- **short-drama-novel-analyze** (upstream) — Source-novel analysis. Splits a long novel, serialized web fiction, or loose multi-episode drafts into a chapter index, per-chapter functions, plot units with pacing aggregation, and merged characters; ends with an adaptation verdict and episode candidates. Start here when the input is a novel.
+- **short-drama-develop** (upstream) — Adaptation development. Turns ideas, synopses, adaptation material, or multi-episode scripts into an adaptation plan, creative brief, director's statement, story engine, and episode map, choosing the writing approach by genre and production form.
+- **short-drama-write** (midstream) — Per-episode script. Writes or revises shootable Chinese per-episode Markdown scripts: removing template feel, de-AI-flavor polishing, writing the next episode, and normalizing existing scripts while preserving the author's voice.
+- **short-drama-assets** (midstream) — Visual design. Extracts characters/looks, locations/views, props/states, and cross-scene continuity from the script; decides reuse vs. new variant; writes creator-readable visual docs. Generates no media.
+- **short-drama-image-prompts** (downstream) — Image prompts. Writes copy-paste-ready image-prompt Markdown for characters, looks, locations, props, and states — character sheets, three-view turnarounds, style frames, local edits.
+- **short-drama-storyboard** (downstream) — Storyboard. Turns the script and visual docs into storyboard Markdown with dramatic duties, continuity boundaries, and frozen-keyframe prompts; owns axis, staging, eyeline, and prop continuity. Generates no media.
+- **short-drama-video-prompts** (downstream) — Video prompts. Turns storyboards and frozen keyframes into text-to-video / image-to-video prompts for action, performance, camera movement, and lip sync; can also write timeline music / theme-song intent. Generates no media.
+- **short-drama-produce** (production) — Media production execution. After explicit creator confirmation, batch-runs image, video, TTS/voiceover, and timeline-music tasks and lands results plus a minimal run log back into the project.
+- **short-drama-edit** (post) — Final cut. Assembles generated shots into a finished piece: in/out points, shot order, sound, subtitles, and delivery specs — assembly cuts, subtitling, loudness normalization, pacing.
+- **short-drama-review** (QA) — Full-pipeline review. Writes review findings, verdicts, and revision requirements for the source analysis, scripts, visual docs, image/video prompts, storyboards, and existing media; never edits source files on the owner's behalf.
+- **seedance-storyboard** (companion) — Seedance 2.0 storyboard prompts. Turns any idea into professional storyboard prompts for the Jimeng/Seedance video workflow; runs standalone without a short-drama project directory.
+
+## 6. Document processing & alignment
 
 - **cyx-doc-align-baseline** — Align derived documents to a content baseline. Aligns teacher lecture notes, syllabi, worksheets, and old copies to the master courseware (md): touches only page-number declarations, numbering systems, terminology families, footer formats, and cross-page references — no restructuring, no rewriting. Scenarios: "align with X", "sync this up", "this one is stale, fix it".
 - **cyx-doc-separate** — Document splitting and version archiving. Names deliverables with a "rev N" prefix, builds a deliverable index, and manages versions (minor changes get a minor version number; structural rewrites get a major one). Fits archiving multi-round iterative deliverables so every version is traceable and unmixed.
 
-## 6. Content extraction
+## 7. Content extraction
 
 - **cyx-douyin-extract** — Douyin and dynamic-site content extraction. Uses a real browser (Edge + CDP) to capture titles, authors, duration, engagement stats, AI chapter summaries, full transcript, comments, and hashtags. A plain `WebFetch` on Douyin only gets an empty shell — body text and comments are JS-rendered and require a real browser. The same method applies to Xiaohongshu, Bilibili web, and other dynamic sites.
 
-## 7. Skill engineering (making skills improve themselves)
+## 8. Deployment & running
+
+- **cyx-github-deploy** — Local deployment of a GitHub repository. clone → read deploy config → pick a path → install dependencies → start the service → verify → consolidate, verified up to "the core business action actually runs". Use it when someone sends a repo link saying "deploy this / get it running".
+- **cyx-folder-deploy** — Local project startup troubleshooting. Gets a project in a local folder (especially pnpm/Node monorepos and split front/back web workbenches) running from scratch, systematically diagnosing "why it won't run": installed but won't start, localhost returning 502, ports blocked, commands not found. Use it when local code won't start.
+
+## 9. Skill engineering (making skills improve themselves)
 
 - **cyx-skill-evolution** — Skill evolution mechanism. At every delivery wrap-up, triage each user correction, recurring comment, or discovered bad command / outdated info: does it hold only for this deliverable, or should all future tasks of this kind work this way? Anything that should persist gets written back into the corresponding skill. It turns skills from "passive responders" into "self-improving assets" so the same lesson isn't paid for twice.
-- **cyx-search-github** — GitHub open-source ecosystem research. Produces a keyword matrix you can search with directly, a real repository list (separating "whole-site / product-level references" from "component-level reuse"), plus licensing and selection advice. Reusable for surveying the open-source ecosystem of any product category.
 
 - **gh-skill-install** [Original · Buddy] — Standard procedure for installing and adapting an Agent Skill from GitHub. Safely pulls a skill from someone's repo, runs a security audit (install hooks / `eval` / credential access / destructive operations), wires up managed runtimes, and adds adaptation notes. Together with `cyx-git-push` it forms the two-way "install / publish" loop for skills.
 
-## 8. Skill deployment & publishing
+## 10. Skill deployment & publishing
 
-- **cyx-git-push** — Push local skills to GitHub. Pushes skill directories under `~/.workbuddy/skills/` (or any file tree) to a GitHub repository: when the machine has no git credential helper and `git push` hangs on auth, it embeds a temporarily provided Personal Access Token into that one command for a one-shot push — the token never touches a file and config is cleaned right after. Covers first push to an empty repo, binary handling (images and fonts go through git, not the MCP file API which corrupts them), `.git/config` token-leak protection, and remote file-count verification. Pairs with `cyx-skill-evolution` and `cyx-search-github` to complete the "research → distill → deploy" loop.
+- **cyx-git-push** — Push local skills to GitHub. Pushes skill directories under `~/.workbuddy/skills/` (or any file tree) to a GitHub repository: when the machine has no git credential helper and `git push` hangs on auth, it embeds a temporarily provided Personal Access Token into that one command for a one-shot push — the token never touches a file and config is cleaned right after. Covers first push to an empty repo, binary handling (images and fonts go through git, not the MCP file API which corrupts them), `.git/config` token-leak protection, remote file-count verification, and the fact that GitHub renders in-repo HTML as source. Pairs with `cyx-skill-evolution` and `cyx-github-search` to complete the "research → distill → deploy" loop.
 
 ---
 

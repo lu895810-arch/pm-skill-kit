@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多项目盘点 · 模板</title>
+<style>
+  :root{
+    --bg:#0a0e16; --panel:#0e1626; --panel-2:#121d30;
+    --line:#1d2a3e; --line-soft:#16202f;
+    --text:#e6edf6; --text-dim:#b9c4d4; --text-mute:#8593a6;
+    --cyan:#3fd0e6; --magenta:#e0509a; --violet:#9b7bff;
+    --green:#54d98c; --amber:#f0b54a; --red:#ff6b6b;
+    --radius:14px; --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,"Segoe UI",system-ui,"PingFang SC","Microsoft YaHei",sans-serif;
+    font-size:14px;line-height:1.6}
+
+  /* 整体：左栏通栏 + 占满正文 */
+  .wrap{
+    display:grid;grid-template-columns:232px minmax(0,1fr);
+    align-items:start;min-height:100vh;
+    background:linear-gradient(90deg,var(--panel) 0,var(--panel) 232px,var(--bg) 232px);
+  }
+  /* 左栏 */
+  .sidebar{
+    position:sticky;top:0;height:100vh;
+    border-right:1px solid var(--line);
+    padding:26px 18px;display:flex;flex-direction:column;
+    overflow-y:auto;
+  }
+  .brand .b-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-mute)}
+  .brand .b-title{font-size:15.5px;font-weight:800;margin-top:6px;line-height:1.35;white-space:nowrap}
+  .toc{margin-top:22px;border-top:1px solid var(--line-soft);padding-top:18px;flex:1}
+  .toc ol{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:toc}
+  .toc li{counter-increment:toc;position:relative;padding-left:26px;font-size:15px}
+  .toc li::before{
+    content:counter(toc,decimal-leading-zero);position:absolute;left:0;top:1px;
+    font-size:11px;font-weight:700;color:var(--magenta);background:#1a1230;
+    border:1px solid #34204f;border-radius:6px;width:18px;height:18px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .toc a{color:var(--text);text-decoration:none;transition:.15s;display:block;line-height:1.45}
+  .toc a:hover{color:var(--cyan)}
+
+  /* 正文 */
+  .content{min-width:0;padding:38px 30px 80px}
+  .hero{max-width:1280px}
+  .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
+  .title{font-size:28px;font-weight:800;margin:8px 0 0;letter-spacing:-.02em}
+  .sub{color:var(--text-dim);margin:12px 0 0;max-width:880px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .chip{font-size:12.5px;color:var(--text-mute);background:var(--panel);
+    border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+  .chip b{color:var(--text)}
+  .stats{display:grid;grid-template-columns:repeat(2,140px);gap:14px;margin:22px 0 8px}
+  .stat{border:1px solid var(--line);background:var(--panel-2);border-radius:var(--radius);padding:14px 16px}
+  .stat .num{font-size:26px;font-weight:800;color:var(--cyan)}
+  .stat .lbl{font-size:12.5px;color:var(--text-mute);margin-top:3px}
+  /* 数据口径块 */
+  .scope{margin-top:22px;border:1px solid var(--line);background:var(--panel);
+    border-radius:var(--radius);padding:16px 18px}
+  .scope-h{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--cyan);margin-bottom:10px}
+  .scope ul{margin:0;padding-left:18px}
+  .scope li{font-size:13px;color:var(--text-dim);line-height:1.7;margin:5px 0}
+  .scope li b{color:var(--text);font-weight:700;margin-right:2px}
+
+  section{margin-top:46px;max-width:1280px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+  .sec-head .idx{font-size:13px;font-weight:700;color:#0a0e16;background:var(--cyan);
+    border-radius:8px;padding:3px 9px}
+  .sec-head h2{font-size:21px;font-weight:800;letter-spacing:-.01em}
+  .sec-head .en{color:var(--text-mute);font-size:13px}
+
+  /* 流程图：每环节一个 stage，胶囊可点 */
+  .pipeline{display:grid;gap:14px}
+  .stage{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:14px 16px}
+  .stage .left{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+  .stage .sno{font-size:11px;font-weight:700;color:var(--magenta);background:#1a1230;
+    border:1px solid #34204f;border-radius:6px;padding:2px 8px}
+  .stage .sname{font-size:15px;font-weight:700}
+  .stage .right{display:flex;flex-wrap:wrap;gap:10px}
+  .ptag{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text);
+    background:var(--panel-2);border:1px solid var(--line);border-radius:999px;
+    padding:6px 14px;text-decoration:none;transition:.15s}
+  .ptag:hover{border-color:var(--cyan);color:var(--cyan)}
+  .ptag .dot{width:8px;height:8px;border-radius:50%}
+  .ptag small{color:var(--text-mute);font-size:11.5px}
+
+  /* 对比总表：行 id 用 row- 前缀，避免与详情卡 cN 冲突 */
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:760px}
+  thead th{text-align:left;background:var(--panel-2);color:var(--text-dim);
+    font-weight:700;padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+  tbody td{padding:11px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  .name a{color:var(--cyan);text-decoration:none;font-weight:600}
+  .name a:hover{text-decoration:underline}
+  .stagepill{font-size:11.5px;font-weight:700;background:var(--panel-2);
+    border:1px solid var(--line);border-radius:6px;padding:2px 8px;white-space:nowrap}
+  .num-cell{font-weight:700;color:var(--text)}
+  .muted{color:var(--text-mute)}
+  .lic{font-weight:700;white-space:nowrap}
+  .lic.ok{color:var(--green)} .lic.warn{color:var(--amber)} .lic.bad{color:var(--red)}
+
+  /* 详情卡：id=cN 唯一，胶囊 href=#cN 落到这里 */
+  .cards{display:grid;gap:16px}
+  .card{border:1px solid var(--line);background:linear-gradient(180deg,#121d30,#0e1626);
+    border-radius:var(--radius);padding:18px 20px;scroll-margin-top:24px}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+  .card h3{margin:0;font-size:17px;font-weight:800}
+  .card .gh{font-size:11.5px;margin-top:3px}
+  .card .gh a{color:var(--cyan);text-decoration:none}
+  .badges{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 8px}
+  .b{font-size:11.5px;font-weight:700;background:var(--panel-2);border:1px solid var(--line);
+    border-radius:6px;padding:3px 9px;color:var(--text-dim)}
+  .b.green{color:var(--green);border-color:#1f3a2a}
+  .b.amber{color:var(--amber);border-color:#3a2f1a}
+  .b.red{color:var(--red);border-color:#3a1f24}
+  .b.cyan{color:var(--cyan);border-color:#13414a}
+  .b.magenta{color:var(--magenta);border-color:#3a1f33}
+  .b.violet{color:var(--violet);border-color:#2a2240}
+  .card .desc{color:var(--text-dim);font-size:13.5px;margin:4px 0 0}
+  .card .facts{display:flex;gap:16px;margin-top:12px;font-size:12.5px;color:var(--text-mute);flex-wrap:wrap}
+  .card .facts b{color:var(--text);font-weight:700}
+
+  /* 选型卡：带环节徽章 */
+  .guide{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .gcard{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:16px 18px}
+  .gcard h4{font-size:15px;color:var(--cyan);margin:0 0 8px;display:flex;align-items:center;gap:8px}
+  .gstage{font-size:11px;font-weight:700;color:#0a0e16;background:var(--magenta);
+    border-radius:6px;padding:2px 7px}
+  .gcard ul{margin:0;padding-left:18px}
+  .gcard li{font-size:13px;color:var(--text-dim);margin:6px 0}
+  .gcard li b{color:var(--text)}
+
+  @media (max-width:1000px){
+    .wrap{grid-template-columns:1fr}
+    .sidebar{position:static;height:auto;flex-direction:column;border-right:none;
+      border-bottom:1px solid var(--line)}
+    .toc ol{grid-template-columns:repeat(2,1fr);gap:8px 28px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .guide{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 左栏：brand + 目录（不加「目录」小标签） -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="b-eyebrow">TOOLKIT · Roundup</div>
+      <div class="b-title">多项目盘点 · 模板</div>
+    </div>
+    <nav class="toc">
+      <ol>
+        <li><a href="#s1">制作流程视图</a></li>
+        <li><a href="#s2">横向对比总表</a></li>
+        <li><a href="#s3">逐个仓库详情</a></li>
+        <li><a href="#s4">按目标选型建议</a></li>
+      </ol>
+    </nav>
+  </aside>
+
+  <main class="content">
+  <header class="hero">
+    <div class="eyebrow">多项目盘点</div>
+    <h1 class="title">（标题：XX 赛道工具盘点）</h1>
+    <p class="sub">（一句话说明：汇总 N 个同类开源仓库，按「环节 A → 环节 B → …」的业务顺序整理，并逐一核验元数据。）</p>
+    <div class="meta-row">
+      <span class="chip">核实日期：<b>YYYY-MM-DD</b></span>
+      <span class="chip">收录仓库：<b>N 个</b></span>
+      <span class="chip">覆盖环节：<b>M 段</b></span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">N</div><div class="lbl">开源工具仓库</div></div>
+      <div class="stat"><div class="num">≈Xk</div><div class="lbl">总 Star 数（合计）</div></div>
+    </div>
+    <!-- 数据口径块：替代逐卡黄色提示 -->
+    <div class="scope">
+      <div class="scope-h">数据口径</div>
+      <ul>
+        <li><b>数据来源</b>：各仓库的 Star、Fork、主语言、许可证和最近更新时间，均通过 GitHub REST API 取数，核实日期为 YYYY-MM-DD。</li>
+        <li><b>收录范围</b>：N 个同类开源工具仓库，按业务先后顺序（环节 A → 环节 B → …）整理。</li>
+        <li><b>许可证口径</b>：以 GitHub 识别到的 LICENSE 为准；GitHub 未识别到许可证文件的，统一记为「未声明」，需进仓查看原文确认授权范围。</li>
+        <li><b>定位表述</b>：各仓库的核心定位优先采用 GitHub 官方描述，官方无描述的按用户提供的信息整理。</li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 01 制作流程视图：每个 .ptag 的 href 指向详情卡 id（#cN） -->
+  <section id="s1">
+    <div class="sec-head"><span class="idx">01</span><h2>制作流程视图</h2><span class="en">Flow</span></div>
+    <div class="pipeline">
+      <div class="stage">
+        <div class="left"><div class="sno">STAGE 01</div><div class="sname">环节 A</div></div>
+        <div class="right">
+          <!-- 复制下面这行加仓库；dot 颜色对应仓库徽章色 -->
+          <a class="ptag" href="#c1"><span class="dot" style="background:var(--magenta)"></span>repo-A <small>一句话说明</small></a>
+        </div>
+      </div>
+      <!-- 复制 .stage 加更多环节（02/03/...） -->
+    </div>
+  </section>
+
+  <!-- 02 横向对比总表：行 id 用 row-cN（与详情卡 cN 区分） -->
+  <section id="s2">
+    <div class="sec-head"><span class="idx">02</span><h2>横向对比总表</h2><span class="en">Comparison</span></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>名称</th><th>所处环节</th><th>Star</th><th>主语言</th><th>许可证（核验）</th><th>最近更新</th><th>核心定位</th></tr>
+        </thead>
+        <tbody>
+          <tr id="row-c1">
+            <td class="name"><a href="https://github.com/owner/repo-A" target="_blank" rel="noopener">repo-A</a></td>
+            <td><span class="stagepill">① 环节 A</span></td>
+            <td class="num-cell">0</td><td>未声明</td>
+            <td class="lic ok">MIT</td><td class="muted">YYYY-MM-DD</td>
+            <td>（核心定位白话描述）</td>
+          </tr>
+          <!-- 复制 <tr id="row-cN"> 加更多仓库，顺序与流程图一致 -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 03 逐个仓库详情：id=cN 唯一，承接流程图胶囊跳转 -->
+  <section id="s3">
+    <div class="sec-head"><span class="idx">03</span><h2>逐个仓库详情</h2><span class="en">Details</span></div>
+    <div class="cards">
+      <div class="card" id="c1">
+        <div class="top">
+          <div><h3>repo-A</h3>
+          <div class="gh"><a href="https://github.com/owner/repo-A" target="_blank" rel="noopener">github.com/owner/repo-A</a></div></div>
+        </div>
+        <div class="badges">
+          <span class="b green">MIT</span><span class="b">Language</span><span class="b magenta">① 环节 A</span>
+        </div>
+        <p class="desc">（核心定位白话描述，首次出现的术语给白话定义。）</p>
+        <div class="facts"><span>Star <b>0</b></span><span>Fork <b>0</b></span><span>更新 <b>YYYY-MM-DD</b></span></div>
+      </div>
+      <!-- 复制 .card id="cN" 加更多仓库，顺序与表格一致 -->
+    </div>
+  </section>
+
+  <!-- 04 按目标选型建议：卡片带环节徽章，分组与上面一致 -->
+  <section id="s4">
+    <div class="sec-head"><span class="idx">04</span><h2>按目标选型建议</h2><span class="en">Selection</span></div>
+    <div class="guide">
+      <div class="gcard">
+        <h4><span class="gstage">①</span> 环节 A</h4>
+        <ul>
+          <li><b>repo-A</b>：（为什么归这一环节、能解决什么）。</li>
+        </ul>
+      </div>
+      <!-- 复制 .gcard 加更多环节；最后一卡可 grid-column:1/-1 占满整行 -->
+    </div>
+  </section>
+
+  </main>
+</div>
+</body>
+</html>

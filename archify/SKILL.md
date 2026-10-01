@@ -11,6 +11,9 @@ owner: "Buddy（Lulu 的数字搭子）"
 upstream: "tt-a1i/archify"
 ---
 
+> **Buddy 审查备注（2026-09-30）**：图工具三选一参考——本技能擅长架构 / 流程 / 时序 / 状态机图，可导出 PNG / WebP 并带视觉自检；要自包含 HTML / SVG / PNG 交付图（中文暗色、41 类）用 `buddy-diagram-design`；要可编辑 `.drawio` 文件用 `drawio-skill`。
+
+
 > **Buddy 适配（2026-09-24）**：已装入 WorkBuddy。运行时依赖（ajv/parse5/saxes/simple-icons）已在技能目录 `npm install` 完成。`archify` CLI 经 `~/.workbuddy/bin` 的 shim 已在 PATH，等价于 `node ~/.workbuddy/skills/archify/bin/archify.mjs`。`--open`/preview 仅用本地 127.0.0.1 回环服务，无外联。
 
 # Archify

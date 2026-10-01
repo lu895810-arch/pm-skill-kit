@@ -9,6 +9,9 @@ metadata:
   owner: "Buddy（Lulu 的数字搭子）"
 ---
 
+> **Buddy 审查备注（2026-09-30）**：图工具三选一参考——要自包含 HTML / SVG / PNG 交付图（中文暗色、41 类）用本技能；要架构 / 流程 / 时序 / 状态机且需导出 PNG 并带视觉自检用 `archify`；要可编辑 `.drawio` 文件（团队协作 / 后续改）用 `drawio-skill`。避免同一张图在三套里各画一遍。
+
+
 # Buddy 的图示设计技能（buddy-diagram-design）
 
 这是我把 Anthropic 官方 `diagram-design` v2.6 改造后、归到自己名下的版本。引擎（41 类图的布局规则、参考库、示例、校验脚本）原样保留，我只改了三件事：
@@ -356,6 +359,16 @@ metadata:
 ```
 
 SVG `viewBox` 高度加 ~60px。
+
+### 嵌入已有暗色 HTML 报告（内联重绘）
+
+Lulu 的报告本身是暗色单文件 HTML（`cyx-research-report` 产出），图直接内联在正文里。这时不另出独立 HTML，而是**就地重绘这些内联 `<svg>`**——只换样式、几何、层级，节点名、端口、依赖关系一字不改。
+
+- **文档级 defs 只定义一次**：在 `<body>` 开头放一个 `<svg width="0" height="0" aria-hidden="true">`，把箭头 `<marker>`（默认灰 + 主色各一）、常用 `<linearGradient>` / 半径很小的 `<radialGradient>` 全放这一个里；各图用 `marker-end="url(#mPur)"`、`fill="url(#gPur)"` 直接引用。同文档内跨 `<svg>` 引用 id 有效（已实测），省掉每图重复 defs。
+- **文字样式走 CSS 类**：在文档 `<head>` 的 `<style>` 里定义 `.t-nm / .t-sub / .t-dim / .t-hdr / .t-cap / .t-lbl`（字号 / 字重 / 颜色），各图 `<text class="t-nm">` 复用，字号阶梯全局一致。等宽只留给端口 / 路径这类技术串（`.t-lbl`）。
+- **连线统一 `.edge` 类**：`fill:none;stroke-width:1.5`，逐条给 `stroke` + `marker-end`。跨轴连接一律圆角直角肘（§6 规则 1）；连线标签照旧带不透明遮罩矩形，遮罩 `fill` 取图表底色（本文 `--panel2`）。
+- **强调靠渐变不靠阴影**：暗色下用主色线性渐变（如 `#2a2150→#181630`）抬高焦点节点、用一层很淡的主色径向渐变做光晕；仍不加 `box-shadow` / `filter`（§4 反模式）。
+- **验收**：抽取全部 `.fig` 块拼成临时预览页，用无头 Chromium 截图逐张放大核对（方法见 `webapp-testing` 第 0 步），验完删临时文件。
 
 ---
 

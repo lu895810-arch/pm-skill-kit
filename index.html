@@ -57,6 +57,8 @@ a{color:var(--accent);}
 <p class="en"><b>2. Adapted third-party skills</b> — created by third-party authors and adapted into the WorkBuddy environment by the author (Lulu). Some needed runtime wiring, dependency install, or shims; see each skill's <code>SKILL.md</code> for adaptation notes.</p>
 <p class="zh">每个技能条目讲清三件事：<b>做什么 / 解决什么问题 / 适合场景</b>，并标注作者归属〔原创〕或〔改造适配 · 原作者〕。</p>
 <p class="en">Each skill entry states three things: <b>what it does / what problem it solves / when to use it</b>, and is tagged [Original] or [Adapted · original author].</p>
+<p class="zh">同系技能多、名字相近分不清走哪个时，查仓库根目录的 <code>SKILL-ROUTES.md</code>——按「产出物 → 落点」整理的路由表。</p>
+<p class="en">When similar skills blur together, check <code>SKILL-ROUTES.md</code> at the repo root — a routing table organized by "deliverable → destination".</p>
 <h2><span class="zh">怎么装</span><span class="en">How to install</span></h2>
 <p class="zh">把需要的技能目录整个复制到 WorkBuddy 的技能目录，重启或刷新即可识别。只用其中一部分也行，但凡是标注了「上游 / 下游」的，缺了上游产物下游就跑不起来，装的时候一并装上。</p>
 <p class="en">Copy the skill folders you need into WorkBuddy's skills directory, then restart or refresh to load them. You can use a subset, but if a skill is marked with an upstream/downstream dependency, install the upstream too or it won't run.</p>
@@ -92,6 +94,18 @@ a{color:var(--accent);}
 <p class="desc zh">为单个产品产出《功能演进与需求分析》单文件暗色科技风 HTML：左侧固定目录 + 八章骨架（演进路线、能力地图、需求清单）。</p>
 <p class="desc en">Produce a single-file dark tech-style HTML 'Feature Evolution &amp; Requirements Analysis' for one product: fixed left TOC + eight-chapter skeleton.</p>
 </div>
+<div class="skill"><div class="name">cyx-bug-demand<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">把产品界面截图里的 bug / 体验问题整理成可持续迭代维护的 Excel 问题台账：问题明细 + 统计图表 + 截图证据三工作表，支持多轮追加排序。</p>
+<p class="desc en">Turn bugs/UX issues from product screenshots into a maintainable Excel issue ledger: detail + stats charts + screenshot evidence sheets, with multi-round appending.</p>
+</div>
+<div class="skill"><div class="name">cyx-compare-code-micro-demand<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">两个（或多个）产品的功能级 / 代码级横向对比：A 的每项优势写成「现状痛点 → 方案 → 可执行需求点 → 可勾选验收标准」的微需求，附 B 的反超清单。</p>
+<p class="desc en">Feature/code-level comparison of two (or more) products: each A advantage becomes a micro-requirement (pain point → solution → requirement → acceptance criteria), plus B's catch-up list.</p>
+</div>
+<div class="skill"><div class="name">cyx-compare-macro-demand<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">两个（或多个）项目的宏观横向对比：定位、用户人群与场景、能力成熟度、主流程分歧、架构、工程纪律，落点是选型建议，不拆到单条需求。</p>
+<p class="desc en">Macro comparison of two (or more) projects: positioning, users &amp; scenarios, maturity, flow divergence, architecture, discipline — output a selection verdict, not per-item requirements.</p>
+</div>
 </div>
 <div class="group"><h3 class="zh">调研与报告</h3><h3 class="en">调研与报告</h3>
 <p class="zh sub">解决什么问题：立住调研报告的底线——数据可溯源、来源拆分、口径显式、去 AI 味。<br>适合场景：写行业/竞品/市场调研，需要拿得出手、经得起追问。</p>
@@ -99,6 +113,26 @@ a{color:var(--accent);}
 <div class="skill"><div class="name">cyx-research-report<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
 <p class="desc zh">产出带数据来源标注、可信级标签、口径边界的中文市场/行业调研报告（单文件暗色科技风 HTML）。语言去 AI 味、通俗、严谨。</p>
 <p class="desc en">Produce Chinese market/industry research reports (single-file dark tech-style HTML) with data-source tags, credibility levels, and scope boundaries. Plain, rigorous, no AI jargon.</p>
+</div>
+<div class="skill"><div class="name">cyx-github-search<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">首次对某类产品做 GitHub 开源生态调研：产出可复用的关键词矩阵 + 真实仓库清单（区分整站/产品级参考与组件级复用）+ 授权与选型建议。</p>
+<p class="desc en">First-pass GitHub open-source ecosystem research: reusable keyword matrix + verified repo list (whole-product vs component-level) + licensing and selection advice.</p>
+</div>
+<div class="skill"><div class="name">cyx-github-search-output<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">仅用于二次编辑：把已有的 GitHub 开源调研草稿精简、重排、修正口径，整理成可直接对外发布的干净报告。首次调研走 cyx-github-search。</p>
+<p class="desc en">Second-pass editing only: trim, reorder, and recalibrate an existing GitHub research draft into a publish-ready report. For first-pass research use cyx-github-search.</p>
+</div>
+<div class="skill"><div class="name">cyx-github-analysis<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">对一个 GitHub 开源项目做「产品 × 技术」双视角分析，产出单文件暗色 HTML 报告：核心定位、痛点→设计映射、架构与取舍、综合判断。</p>
+<p class="desc en">Dual-perspective (product × tech) analysis of one GitHub repo as a single-file dark HTML report: positioning, pain-point→design mapping, architecture trade-offs, verdict.</p>
+</div>
+<div class="skill"><div class="name">cyx-folder-analysis<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">对一个本地文件夹（桌面软件、未上线工程、分发包）做「产品 × 技术」双视角分析，产出同款单文件暗色 HTML 报告。没有 GitHub 仓库时用它。</p>
+<p class="desc en">Dual-perspective (product × tech) analysis of a local folder (desktop software, unreleased build, package) as the same dark HTML report. Use when there's no GitHub repo.</p>
+</div>
+<div class="skill"><div class="name">cyx-multi-project-analysis<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">对一批同类 GitHub 仓库做批量核验与横向盘点：元数据逐一经 API 核实，按制作流程先后组织，四节联动产出选型建议。</p>
+<p class="desc en">Batch verification and cross-comparison of similar GitHub repos: metadata verified via API, organized by production-flow order, four linked sections ending in selection advice.</p>
 </div>
 </div>
 <div class="group"><h3 class="zh">课程与课件</h3><h3 class="en">课程与课件</h3>
@@ -137,6 +171,58 @@ a{color:var(--accent);}
 <p class="desc en">Art setting book for AI short dramas (scenes + narrative props): scene intent, consistency anchors, lighting/time variants, empty-scene prompts; prop dramatic function + prompts.</p>
 </div>
 </div>
+<div class="group"><h3 class="zh">短剧创作管线 short-drama 系列</h3><h3 class="en">短剧创作管线 short-drama 系列</h3>
+<p class="zh sub">解决什么问题：从小说或想法到成片的另一条完整短剧/漫剧生产线，按文件系统项目目录交接，颗粒度更细，覆盖到提示词、配音与剪辑。<br>适合场景：做 AI 短剧/漫剧的全流程创作与生产。</p>
+<p class="en sub">解决什么问题：从小说或想法到成片的另一条完整短剧/漫剧生产线，按文件系统项目目录交接，颗粒度更细，覆盖到提示词、配音与剪辑。<br>适合场景：做 AI 短剧/漫剧的全流程创作与生产。</p>
+<div class="skill"><div class="name">short-drama<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">总控：基于文件系统初始化和继续短剧/漫剧项目，提供五文档路由、本地 Dashboard、制作形态与 Look Development 决策。</p>
+<p class="desc en">Controller: init/resume a short-drama project on the filesystem with five-document routing, a local Dashboard, production-form and Look Development decisions.</p>
+</div>
+<div class="skill"><div class="name">short-drama-novel-analyze<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">把长篇小说、连载网文或多集散稿拆成原著分析：章节索引、逐章功能、剧情单元与节奏、人物归并，给出改编价值判定与分集候选。</p>
+<p class="desc en">Split a novel/web fiction/multi-episode drafts into source analysis: chapter index, per-chapter functions, plot units, merged characters, adaptation verdict and episode candidates.</p>
+</div>
+<div class="skill"><div class="name">short-drama-develop<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">把想法、梗概或多集剧本发展成改编方案、创作简报、导演阐述、故事引擎与分集地图，按题材与制作形态选写法。</p>
+<p class="desc en">Develop ideas, synopses, or scripts into an adaptation plan, creative brief, director's statement, story engine, and episode map; writing approach by genre and form.</p>
+</div>
+<div class="skill"><div class="name">short-drama-write<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">编写或修订可拍摄的中文单集 Markdown 剧本：去模板感、去 AI 味润色、续写下一集，也负责规范化现成剧本并保留作者原文。</p>
+<p class="desc en">Write or revise shootable per-episode Markdown scripts: remove template feel, de-AI-flavor polish, continue to the next episode; normalize existing scripts preserving the author's voice.</p>
+</div>
+<div class="skill"><div class="name">short-drama-assets<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">从剧本拆出人物/造型、地点/视图、道具/状态和跨场连续性，判断复用还是新变体，写成创作者可读的视觉设定。不生成媒体。</p>
+<p class="desc en">Extract characters/looks, locations/views, props/states, and cross-scene continuity from the script; judge reuse vs. new variant; write readable visual docs. No media.</p>
+</div>
+<div class="skill"><div class="name">short-drama-image-prompts<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">为短剧人物、造型、地点、道具写可直接复制的图片提示词 Markdown：角色设定图、三视图、风格帧、Look Development、局部编辑。</p>
+<p class="desc en">Copy-paste-ready image-prompt Markdown for characters, looks, locations, props: character sheets, three-view turnarounds, style frames, Look Development, local edits.</p>
+</div>
+<div class="skill"><div class="name">short-drama-storyboard<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">把剧本和视觉设定写成有戏剧职责、连续性边界与冻结关键帧提示词的分镜 Markdown，管轴线、站位、视线、持物连续性。</p>
+<p class="desc en">Turn script and visual docs into storyboard Markdown with dramatic duties, continuity boundaries, frozen-keyframe prompts; owns axis, staging, eyeline, prop continuity.</p>
+</div>
+<div class="skill"><div class="name">short-drama-video-prompts<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">把分镜和冻结关键帧写成可直接复制的视频提示词 Markdown：文生/图生视频的动作、表演、运镜、口型，也可写时间线配乐意图。</p>
+<p class="desc en">Copy-paste-ready video-prompt Markdown from storyboards and frozen keyframes: T2V/I2V action, performance, camera, lip sync; also timeline music intent.</p>
+</div>
+<div class="skill"><div class="name">short-drama-produce<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">在创作者明确确认后批量执行图片、视频、TTS/配音、时间线音乐生产任务，把结果与运行记录落回项目。</p>
+<p class="desc en">After explicit creator confirmation, batch-run image, video, TTS/voiceover, and timeline-music tasks, landing results and a run log back into the project.</p>
+</div>
+<div class="skill"><div class="name">short-drama-edit<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">把已生成的镜头剪成成片：入出点、镜序、声音、字幕与交付规格，用于套剪、加字幕、统一响度、调整节奏。</p>
+<p class="desc en">Assemble generated shots into a finished cut: in/out points, shot order, sound, subtitles, delivery specs — assembly, subtitling, loudness, pacing.</p>
+</div>
+<div class="skill"><div class="name">short-drama-review<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">审查短剧项目中的原著分析、剧本、视觉设定、各类提示词、分镜和已有媒体，只写审查问题、结论与修订要求，不代替 owner 改文件。</p>
+<p class="desc en">Review source analysis, scripts, visual docs, prompts, storyboards, and media; writes findings, verdicts, and revision requirements only — never edits source files.</p>
+</div>
+<div class="skill"><div class="name">seedance-storyboard<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">把任何想法转换成即梦 Seedance 2.0 专业分镜提示词，配合即梦/剪映 AI 视频流程使用，不依赖 short-drama 项目目录也能单独跑。</p>
+<p class="desc en">Turn any idea into professional Seedance 2.0 storyboard prompts for the Jimeng/JianYing AI video workflow; runs standalone without a short-drama project directory.</p>
+</div>
+</div>
 <div class="group"><h3 class="zh">文档处理与对齐</h3><h3 class="en">文档处理与对齐</h3>
 <p class="zh sub">解决什么问题：同一项目里派生文档各自为政、对不齐、乱放。<br>适合场景：课程/项目文档多版本管控、主课件与派生稿对齐。</p>
 <p class="en sub">解决什么问题：同一项目里派生文档各自为政、对不齐、乱放。<br>适合场景：课程/项目文档多版本管控、主课件与派生稿对齐。</p>
@@ -157,16 +243,24 @@ a{color:var(--accent);}
 <p class="desc en">Extract a Douyin video page in full — title, author, duration, engagement stats, AI chapter highlights/full transcript, comments — via a real browser.</p>
 </div>
 </div>
+<div class="group"><h3 class="zh">部署与运行</h3><h3 class="en">部署与运行</h3>
+<p class="zh sub">解决什么问题：拿到一个仓库或本地项目，跑不起来、不知道从哪下手。<br>适合场景：部署 GitHub 项目、排查本地项目启动失败。</p>
+<p class="en sub">解决什么问题：拿到一个仓库或本地项目，跑不起来、不知道从哪下手。<br>适合场景：部署 GitHub 项目、排查本地项目启动失败。</p>
+<div class="skill"><div class="name">cyx-github-deploy<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">把一个 GitHub 仓库从零部署成本地可用的服务：clone → 读部署配置 → 选路径 → 装依赖 → 起服务 → 验证到核心业务动作真能跑通。</p>
+<p class="desc en">Deploy a GitHub repo from zero to a locally running service: clone → read deploy config → pick path → install deps → start → verify the core business action runs.</p>
+</div>
+<div class="skill"><div class="name">cyx-folder-deploy<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
+<p class="desc zh">把本地文件夹里的项目（尤其 pnpm/Node monorepo）从零跑起来，系统性排查「为什么跑不起来」：装好但起不来、502、端口不通。</p>
+<p class="desc en">Get a local folder project (especially pnpm/Node monorepos) running from scratch, systematically diagnosing why it won't start: installed but failing, 502, blocked ports.</p>
+</div>
+</div>
 <div class="group"><h3 class="zh">技能工程</h3><h3 class="en">技能工程</h3>
 <p class="zh sub">解决什么问题：技能用久了会走样，教训没沉淀。<br>适合场景：维护 cyx 系列技能、调研开源生态、把经验回写进技能。</p>
 <p class="en sub">解决什么问题：技能用久了会走样，教训没沉淀。<br>适合场景：维护 cyx 系列技能、调研开源生态、把经验回写进技能。</p>
 <div class="skill"><div class="name">cyx-skill-evolution<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
 <p class="desc zh">cyx 系列共用的自我进化条款：任何技能被使用后，用户的修改/补充/纠偏都按本条款判定通用还是个案，回写进技能而非只改当次。</p>
 <p class="desc en">Self-evolution clause shared by cyx skills: any user edit/addition/correction during use is judged (generic vs case-specific) and written back into the skill, not just the current task.</p>
-</div>
-<div class="skill"><div class="name">cyx-search-github<span class="tag orig zh">〔原创 · Lulu〕</span><span class="tag orig en">[Original · Lulu]</span></div>
-<p class="desc zh">在 GitHub 系统化调研某类产品/系统的开源生态，找出可复用组件与可参考的类似产品，产出关键词矩阵 + 真实仓库清单。</p>
-<p class="desc en">Systematically research the open-source ecosystem of a product/system type on GitHub; find reusable components and reference products; output a keyword matrix + real repo list.</p>
 </div>
 </div>
 <div class="group"><h3 class="zh">技能部署与发布</h3><h3 class="en">技能部署与发布</h3>

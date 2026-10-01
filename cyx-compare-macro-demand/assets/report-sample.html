@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Huobao Drama × Jellyfish 对比分析</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#151a22; --panel2:#1c232d; --line:#2a323e;
+    --tx:#dde3ea; --tx2:#a6b0bd; --tx3:#77828f;
+    --accent:#e8925a;
+    --h:#e8925a;   /* Huobao 主色：暖橙（暗底可读） */
+    --j:#54c7b4;   /* Jellyfish 主色：青绿（暗底可读） */
+    --green:#7dd694; --red:#ef8a80; --amber:#e5c376;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--tx);font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;line-height:1.85;font-size:15.5px}
+  .toc{position:fixed;left:0;top:0;width:216px;height:100vh;background:#11151c;border-right:1px solid var(--line);padding:26px 0;overflow-y:auto;z-index:10}
+  .toc-title{font-size:12.5px;color:var(--tx3);letter-spacing:4px;padding:0 24px;margin-bottom:12px;font-weight:600}
+  .toc a{display:block;padding:9px 24px;color:var(--tx2);text-decoration:none;font-size:13.5px;border-left:3px solid transparent;line-height:1.5;border-radius:0 8px 8px 0}
+  .toc a .tn{color:var(--tx3);font-family:Consolas,monospace;margin-right:9px;font-size:12px}
+  .toc a:hover{color:var(--tx);background:#1a212b}
+  .toc a.active{color:var(--h);border-left-color:var(--h);background:#221c15;font-weight:600}
+  .wrap{max-width:1180px;margin:0 28px 0 244px;padding:44px 0 80px}
+  @media (max-width:1080px){.toc{display:none}.wrap{margin:0 auto;padding:44px 28px 80px;max-width:1000px}}
+  h1{font-size:26px;font-weight:700;letter-spacing:.3px;color:#f0f4f8}
+  .sub{color:var(--tx2);margin-top:6px;font-size:14px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .m{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px 12px;font-size:12.5px;color:var(--tx2)}
+  .m b{color:var(--tx);font-weight:600}
+  h2{font-size:19px;margin:52px 0 6px;padding-left:12px;border-left:4px solid var(--h);font-weight:700;color:#f0f4f8}
+  h2 .n{color:var(--h);font-family:Consolas,monospace;margin-right:8px;font-size:16px}
+  h3{font-size:15.5px;margin:26px 0 8px;color:var(--tx);font-weight:600}
+  p{margin:10px 0;color:var(--tx)}
+  .lead{color:var(--tx2)}
+  .hl{color:var(--h)}
+  .hl-p{color:var(--j)}
+  .hl-g{color:var(--green)}
+  .hl-a{color:var(--amber)}
+  .hl-r{color:var(--red)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:16px 0;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+  .src{color:var(--tx3);font-size:12px;font-family:Consolas,monospace;margin-top:8px}
+  .kicker{font-size:12.5px;color:var(--tx3);margin-bottom:2px;letter-spacing:1px}
+  table.t{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  table.t th{background:var(--panel2);color:var(--tx2);font-weight:600;text-align:left;padding:10px 13px;border:1px solid var(--line);white-space:nowrap}
+  table.t td{padding:10px 13px;border:1px solid var(--line);vertical-align:top}
+  table.t tr:hover td{background:#1c232d}
+  .hcell{color:var(--h);font-weight:600}
+  .jcell{color:var(--j);font-weight:600}
+  svg{width:100%;height:auto;display:block}
+  svg text{font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+  .note{font-size:13.5px;color:var(--tx2);margin-top:8px}
+  ul{margin:8px 0 8px 20px}
+  li{margin:5px 0}
+  .callout{border-left:3px solid var(--amber);background:#221d12;border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;font-size:14px;color:var(--tx)}
+  .callout.red{border-left-color:var(--red);background:#251614}
+  .callout.green{border-left-color:var(--green);background:#14201a}
+  .footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);color:var(--tx3);font-size:12.5px}
+  .footer li{margin:3px 0}
+  code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-family:Consolas,monospace;font-size:12.5px;color:var(--h)}
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <div class="toc-title">目录</div>
+  <a href="#s1" class="active"><span class="tn">01</span>核心结论</a>
+  <a href="#s2"><span class="tn">02</span>用户人群与使用场景</a>
+  <a href="#s3"><span class="tn">03</span>基本信息对比</a>
+  <a href="#s4"><span class="tn">04</span>主流程对比</a>
+  <a href="#s5"><span class="tn">05</span>架构对比</a>
+  <a href="#s6"><span class="tn">06</span>能力成熟度</a>
+  <a href="#s7"><span class="tn">07</span>纪律与风险</a>
+  <a href="#s8"><span class="tn">08</span>选型建议</a>
+  <a href="#src-list"><span class="tn">··</span>来源索引</a>
+</nav>
+
+<div class="wrap">
+
+<h1>Huobao Drama × Jellyfish：对比分析</h1>
+<div class="sub">对比对象：<a href="https://github.com/chatfire-AI/huobao-drama" style="color:var(--h);text-decoration:none">huobao-drama</a>（v4.0.5，2026-09）与 <a href="https://github.com/Forget-C/Jellyfish" style="color:var(--j);text-decoration:none">Jellyfish</a>（v0.3.2，2026-04）· 依据两份仓库代码级分析</div>
+<div class="meta">
+  <div class="m">同赛道 <b>AI 短剧生产流水线 / 编排层</b></div>
+  <div class="m">Huobao <b>CC BY-NC-SA（禁商用）</b></div>
+  <div class="m">Jellyfish <b>Apache-2.0（可商用）</b></div>
+  <div class="m">对比维度 <b>用户 / 定位 / 流程 / 架构 / 成熟度 / 风险 / 选型</b></div>
+</div>
+
+<!-- ============ 01 核心结论 ============ -->
+<h2 id="s1"><span class="n">01</span>核心结论：强项与弱项正好互补</h2>
+<div class="panel">
+  <p style="font-size:16px;line-height:1.9">两个项目都把自己定位在 AI 视频赛道的<span class="hl">工作流编排层</span>，不造模型，只把「剧本到画面」各环节串成生产线。但两者的完成度方向相反，形成互补：</p>
+  <p style="font-size:16px;line-height:1.9;margin-top:6px"><span class="hcell">Huobao Drama</span> 把链路<span class="hl-g">贯通到了成片</span>（FFmpeg 本地合成、桌面端一键分发），却<span class="hl-r">禁止商用</span>、工程纪律松散、没有自动化测试；<span class="jcell">Jellyfish</span> 工程扎实、<span class="hl-g">许可证可商用</span>、任务系统与状态约定写成文档，却<span class="hl-r">止步于镜头素材</span>，时间线与成片导出尚未实现。</p>
+  <p class="note">两者的重叠项只有视觉一致性体系：都把角色、场景、道具做成实体库，保证跨镜头视觉统一。其余维度的强弱正好错开。</p>
+</div>
+
+<div class="panel">
+<svg viewBox="0 0 900 300">
+  <defs>
+    <linearGradient id="mH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#221a14"/><stop offset="1" stop-color="#1a1510"/></linearGradient>
+    <linearGradient id="mJ" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#122020"/><stop offset="1" stop-color="#0f1a1a"/></linearGradient>
+    <filter id="mSh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.45"/></filter>
+  </defs>
+  <!-- 标题 -->
+  <text x="230" y="34" fill="#e8925a" font-size="15" font-weight="700" text-anchor="middle">Huobao Drama</text>
+  <text x="670" y="34" fill="#54c7b4" font-size="15" font-weight="700" text-anchor="middle">Jellyfish</text>
+  <!-- 两列卡片 -->
+  <g filter="url(#mSh)">
+    <rect x="40" y="52" width="380" height="208" rx="14" fill="url(#mH)" stroke="#5a4331"/>
+    <rect x="480" y="52" width="380" height="208" rx="14" fill="url(#mJ)" stroke="#35564f"/>
+  </g>
+  <!-- Huobao 列项 -->
+  <g font-size="13" fill="#d5dce4">
+    <circle cx="66" cy="84" r="4" fill="#7dd694"/><text x="82" y="89">✓ 链路贯通至成片（FFmpeg 合成）</text>
+    <circle cx="66" cy="116" r="4" fill="#7dd694"/><text x="82" y="121">✓ 桌面端一键分发 / 国内厂商适配</text>
+    <circle cx="66" cy="148" r="4" fill="#ef8a80"/><text x="82" y="153">✗ 授权禁商用（CC BY-NC-SA）</text>
+    <circle cx="66" cy="180" r="4" fill="#ef8a80"/><text x="82" y="185">✗ 无自动化测试 / 无多用户权限</text>
+    <circle cx="66" cy="212" r="4" fill="#e5c376"/><text x="82" y="217">△ 生成全外置于付费 API</text>
+  </g>
+  <!-- Jellyfish 列项 -->
+  <g font-size="13" fill="#d5dce4">
+    <circle cx="506" cy="84" r="4" fill="#7dd694"/><text x="522" y="89">✓ 许可证可商用（Apache-2.0）</text>
+    <circle cx="506" cy="116" r="4" fill="#7dd694"/><text x="522" y="121">✓ 工程纪律强 / 任务系统成熟</text>
+    <circle cx="506" cy="148" r="4" fill="#ef8a80"/><text x="522" y="153">✗ 止步于镜头素材，无成片导出</text>
+    <circle cx="506" cy="180" r="4" fill="#ef8a80"/><text x="522" y="185">✗ 模型接入少（仅 OpenAI / 火山）</text>
+    <circle cx="506" cy="212" r="4" fill="#e5c376"/><text x="522" y="217">△ 单机部署、无多用户协作</text>
+  </g>
+  <!-- 中间互补标注 -->
+  <line x1="420" y1="156" x2="480" y2="156" stroke="#3a4450" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="450" y="146" fill="#8b95a2" font-size="11" text-anchor="middle">互补</text>
+  <text x="450" y="172" fill="#8b95a2" font-size="11" text-anchor="middle">强项与弱项正好错开</text>
+</svg>
+<p class="src">来源：两份项目分析（huobao-drama-analysis.html / Jellyfish项目分析.html）的成熟度与风险章节</p>
+</div>
+
+<!-- ============ 02 用户人群与使用场景 ============ -->
+<h2 id="s2"><span class="n">02</span>用户人群与使用场景</h2>
+<p class="lead">两者底层都是「剧本到画面」的编排层，但面向的人和解决的问题不同：Huobao 面向个人，部署与操作都在桌面端本地完成；Jellyfish 面向团队，走 Web 部署与工程化路线。下面按「用户群体 → 使用场景 → 解决的问题」三层展开。</p>
+<div class="panel">
+<svg viewBox="0 0 900 440">
+  <defs>
+    <linearGradient id="uH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#221a14"/><stop offset="1" stop-color="#1a1510"/></linearGradient>
+    <linearGradient id="uJ" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#122020"/><stop offset="1" stop-color="#0f1a1a"/></linearGradient>
+    <marker id="um" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><path d="M0,0.5 L7.5,4 L0,7.5 z" fill="#8b95a2"/></marker>
+  </defs>
+  <!-- 项目名 -->
+  <text x="220" y="26" fill="#e8925a" font-size="14" font-weight="700" text-anchor="middle">Huobao Drama</text>
+  <text x="680" y="26" fill="#54c7b4" font-size="14" font-weight="700" text-anchor="middle">Jellyfish</text>
+  <!-- 左栏节点 -->
+  <g filter="url(#mSh)">
+    <rect x="40" y="48" width="360" height="106" rx="12" fill="url(#uH)" stroke="#5a4331"/>
+    <rect x="40" y="172" width="360" height="106" rx="12" fill="url(#uH)" stroke="#5a4331"/>
+    <rect x="40" y="296" width="360" height="106" rx="12" fill="url(#uH)" stroke="#5a4331"/>
+  </g>
+  <!-- 左栏文字 -->
+  <g font-size="12.5" fill="#d5dce4">
+    <text x="58" y="70" fill="#e8925a" font-weight="700">目标用户群体</text>
+    <text x="58" y="91">个人创作者 / 短剧·漫剧爱好者</text>
+    <text x="58" y="109">用国内 AI 视频模型做整片</text>
+    <text x="58" y="127">不擅长剪映等剪辑工具</text>
+    <text x="58" y="146" fill="#8b95a2">仅个人 / 非商用</text>
+
+    <text x="58" y="194" fill="#e8925a" font-weight="700">典型使用场景</text>
+    <text x="58" y="215">桌面单机，零外部依赖</text>
+    <text x="58" y="233">输入小说或剧本，依次完成六个步骤</text>
+    <text x="58" y="251">一键生成可播放成片</text>
+    <text x="58" y="270" fill="#8b95a2">桌面端直接分发</text>
+
+    <text x="58" y="318" fill="#e8925a" font-weight="700">要解决的问题</text>
+    <text x="58" y="339">多环节不必在工具间手工搬运</text>
+    <text x="58" y="357">免在剪映里手动拼接成片</text>
+    <text x="58" y="375">内置国内中转适配，免配海外模型</text>
+    <text x="58" y="394" fill="#8b95a2">一条流水线贯通到成片</text>
+  </g>
+  <!-- 右栏节点 -->
+  <g filter="url(#mSh)">
+    <rect x="500" y="48" width="360" height="106" rx="12" fill="url(#uJ)" stroke="#35564f"/>
+    <rect x="500" y="172" width="360" height="106" rx="12" fill="url(#uJ)" stroke="#35564f"/>
+    <rect x="500" y="296" width="360" height="106" rx="12" fill="url(#uJ)" stroke="#35564f"/>
+  </g>
+  <!-- 右栏文字 -->
+  <g font-size="12.5" fill="#d5dce4">
+    <text x="518" y="70" fill="#54c7b4" font-weight="700">目标用户群体</text>
+    <text x="518" y="91">做可商用短剧平台的团队</text>
+    <text x="518" y="109">重视工程纪律的工程团队</text>
+    <text x="518" y="127">自托管、需长期演进的开发者</text>
+    <text x="518" y="146" fill="#8b95a2">需可追溯任务状态</text>
+
+    <text x="518" y="194" fill="#54c7b4" font-weight="700">典型使用场景</text>
+    <text x="518" y="215">Web 工作台多人协作</text>
+    <text x="518" y="233">剧本 → 分镜 → 镜头素材</text>
+    <text x="518" y="251">接入自有产品或下游管线</text>
+    <text x="518" y="270" fill="#8b95a2">容器化自托管部署</text>
+
+    <text x="518" y="318" fill="#54c7b4" font-weight="700">要解决的问题</text>
+    <text x="518" y="339">免从零搭 Web 服务与任务调度</text>
+    <text x="518" y="357">任务唯一可信数据源，状态可追溯</text>
+    <text x="518" y="375">Apache-2.0 可商用、可派生</text>
+    <text x="518" y="394" fill="#8b95a2">工程规范，适合做产品底座</text>
+  </g>
+  <!-- 纵向箭头 -->
+  <g stroke="#8b95a2" stroke-width="1.5" fill="none" marker-end="url(#um)">
+    <line x1="220" y1="154" x2="220" y2="170"/>
+    <line x1="220" y1="278" x2="220" y2="294"/>
+    <line x1="680" y1="154" x2="680" y2="170"/>
+    <line x1="680" y1="278" x2="680" y2="294"/>
+  </g>
+  <!-- 中间分隔 -->
+  <line x1="450" y1="44" x2="450" y2="406" stroke="#2a323e" stroke-width="1" stroke-dasharray="3 4"/>
+  <text x="450" y="228" fill="#8b95a2" font-size="10.5" text-anchor="middle" transform="rotate(-90 450 228)">用户 → 场景 → 问题</text>
+</svg>
+<p class="src">来源：两项目分析的用户定位与部署形态章节（Huobao 桌面单机 / Jellyfish Web 自托管）</p>
+</div>
+<p class="lead">下表按用户、场景、问题逐项对照，便于核对与补充。</p>
+<table class="t">
+  <tr><th style="width:18%">要素</th><th><span class="hcell">Huobao Drama</span></th><th><span class="jcell">Jellyfish</span></th></tr>
+  <tr><td>目标用户群体</td><td>个人创作者、短剧 / 漫剧爱好者；使用国内 AI 视频模型、想直接产出整片、但不熟悉剪映等剪辑工具的人；限个人 / 非商用</td><td>要把 AI 短剧能力做成可商用产品的团队；重视工程纪律、需要长期演进的工程团队；自托管、要求任务状态可追溯的开发者</td></tr>
+  <tr><td>典型使用场景</td><td>桌面单机（零外部依赖），导入小说或剧本，走完「项目 → 剧本 → 资产 → 分镜 → 视频 → 导出」六步，一键得到可播放成片并桌面分发</td><td>浏览器工作台多人协作，完成「剧本 → 分镜 → 镜头素材」并接入自有产品或下游管线；容器化自托管部署</td></tr>
+  <tr><td>解决的问题</td><td>把分镜、绘图、视频、拼接多个环节在一个桌面应用里自动串起，免去在多个工具间手工搬运与在剪映手动拼接；内置国内模型中转适配，省去配置海外模型的门槛</td><td>提供可商用、工程规范、任务状态可追溯的生产底座，免去从零搭建 Web 服务与任务调度系统；适合作为长期产品地基演进</td></tr>
+</table>
+
+<!-- ============ 03 基本信息 ============ -->
+<h2 id="s3"><span class="n">03</span>基本信息对比</h2>
+<p class="lead">两者定位几乎一致，差异集中在协议、技术栈与部署形态。下表逐行对比。</p>
+<table class="t">
+  <tr><th style="width:22%">维度</th><th><span class="hcell">Huobao Drama</span></th><th><span class="jcell">Jellyfish</span></th></tr>
+  <tr><td>核心定位</td><td>AI 短剧 / 漫剧生产平台（小说 → 成片）</td><td>AI 短剧生产工作台（剧本 → 镜头素材）</td></tr>
+  <tr><td>开源协议</td><td><span class="hl-r">CC BY-NC-SA 4.0，禁止商用</span></td><td><span class="hl-g">Apache-2.0，可商用</span></td></tr>
+  <tr><td>版本 / 时间</td><td>v4.0.5（2026-09）</td><td>v0.3.2（2026-04）</td></tr>
+  <tr><td>后端栈</td><td>Hono + Drizzle ORM + Mastra(Agent) + SQLite</td><td>FastAPI + Celery + MySQL</td></tr>
+  <tr><td>前端栈</td><td>Nuxt 3 + Vue 3（SPA，纯 CSS）</td><td>React 18 + Vite + TypeScript</td></tr>
+  <tr><td>部署形态</td><td>Electron 桌面端 / Docker / 单服务</td><td>Docker Compose 一键部署（Web）</td></tr>
+  <tr><td>AI 编排方式</td><td>4 个 Mastra Agent（提示词在线可编辑）</td><td>LangChain / LangGraph（chains 层）</td></tr>
+  <tr><td>模型接入</td><td>3 图 + 3 视频适配器（6 家厂商）</td><td>仅 OpenAI / 火山引擎（2 家）</td></tr>
+  <tr><td>成片导出</td><td><span class="hl-g">有（FFmpeg 本地合成）</span></td><td><span class="hl-r">无（roadmap 待办）</span></td></tr>
+  <tr><td>语言 / 分发</td><td>中 / 英 / 日 / 韩 + 桌面更新器</td><td>中文为主，容器化自托管</td></tr>
+  <tr><td>自动化测试</td><td><span class="hl-r">无</span></td><td><span class="hl-r">少量（响应 / 取消 / 缓存分支）</span></td></tr>
+</table>
+
+<!-- ============ 04 主流程 ============ -->
+<h2 id="s4"><span class="n">04</span>主流程对比：成片 vs 素材</h2>
+<p class="lead">两条流水线前半段高度相似（项目 → 拆解 → 分镜 → 生成），<span class="hl-r">分歧在最后一环</span>：Huobao 多出「拼接导出」，Jellyfish 在「生成工作台」产出镜头素材后便结束。</p>
+<div class="panel">
+<svg viewBox="0 0 980 250">
+  <defs>
+    <linearGradient id="fN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2029"/><stop offset="1" stop-color="#151a22"/></linearGradient>
+    <marker id="fm" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><path d="M0,0.5 L7.5,4 L0,7.5 z" fill="#8b95a2"/></marker>
+  </defs>
+  <!-- 行标 -->
+  <text x="12" y="68" fill="#e8925a" font-size="12.5" font-weight="700">Huobao</text>
+  <text x="12" y="178" fill="#54c7b4" font-size="12.5" font-weight="700">Jellyfish</text>
+  <!-- Huobao 行 y=44 h=52 -->
+  <g filter="url(#mSh)">
+    <rect x="80" y="44" width="120" height="52" rx="11" fill="url(#fN)" stroke="#33404e"/>
+    <rect x="210" y="44" width="120" height="52" rx="11" fill="url(#fN)" stroke="#5a4331"/>
+    <rect x="340" y="44" width="120" height="52" rx="11" fill="url(#fN)" stroke="#5a4331"/>
+    <rect x="470" y="44" width="120" height="52" rx="11" fill="url(#fN)" stroke="#5a4331"/>
+    <rect x="600" y="44" width="120" height="52" rx="11" fill="url(#fN)" stroke="#5a4331"/>
+    <rect x="730" y="44" width="130" height="52" rx="11" fill="#152318" stroke="#4a7252"/>
+  </g>
+  <g text-anchor="middle" font-size="12.5" fill="#d5dce4">
+    <text x="140" y="75">项目</text>
+    <text x="270" y="75">剧本改写</text>
+    <text x="400" y="75">资产制作</text>
+    <text x="530" y="75">分镜拆解</text>
+    <text x="660" y="75">视频生成</text>
+    <text x="795" y="71" fill="#7dd694" font-weight="700">拼接导出</text>
+    <text x="795" y="89" fill="#8fc9a0" font-size="10.5">成片 ✓</text>
+  </g>
+  <!-- Jellyfish 行 y=154 h=52 -->
+  <g filter="url(#mSh)">
+    <rect x="80" y="154" width="120" height="52" rx="11" fill="url(#fN)" stroke="#33404e"/>
+    <rect x="210" y="154" width="120" height="52" rx="11" fill="url(#fN)" stroke="#35564f"/>
+    <rect x="340" y="154" width="120" height="52" rx="11" fill="url(#fN)" stroke="#35564f"/>
+    <rect x="470" y="154" width="120" height="52" rx="11" fill="url(#fN)" stroke="#35564f"/>
+    <rect x="600" y="154" width="120" height="52" rx="11" fill="url(#fN)" stroke="#4d7a72" stroke-dasharray="5 3"/>
+    <rect x="730" y="154" width="130" height="52" rx="11" fill="#262014" stroke="#8a7440"/>
+  </g>
+  <g text-anchor="middle" font-size="12.5" fill="#d5dce4">
+    <text x="140" y="185">项目</text>
+    <text x="270" y="185">章节</text>
+    <text x="400" y="185">AI 拆分</text>
+    <text x="530" y="185">分镜准备</text>
+    <text x="660" y="185" fill="#54c7b4">ready 门禁</text>
+    <text x="795" y="181" fill="#e5c376" font-weight="700">生成工作台</text>
+    <text x="795" y="199" fill="#e5c376" font-size="10.5">镜头素材 ✓ / 成片 ✗</text>
+  </g>
+  <!-- 箭头 -->
+  <g stroke="#8b95a2" stroke-width="1.4" fill="none" marker-end="url(#fm)">
+    <line x1="200" y1="70" x2="206" y2="70"/><line x1="330" y1="70" x2="336" y2="70"/><line x1="460" y1="70" x2="466" y2="70"/><line x1="590" y1="70" x2="596" y2="70"/><line x1="720" y1="70" x2="726" y2="70"/>
+    <line x1="200" y1="180" x2="206" y2="180"/><line x1="330" y1="180" x2="336" y2="180"/><line x1="460" y1="180" x2="466" y2="180"/><line x1="590" y1="180" x2="596" y2="180"/><line x1="720" y1="180" x2="726" y2="180"/>
+  </g>
+  <!-- 差异标注（置于图内安全区） -->
+  <path d="M858,96 C886,102 890,106 892,112" stroke="#4a7252" stroke-width="1.3" fill="none"/>
+  <text x="892" y="122" fill="#7dd694" font-size="11" font-weight="600">Huobao 多出</text>
+  <text x="892" y="138" fill="#7dd694" font-size="11" font-weight="600">成片导出</text>
+</svg>
+<p class="src">来源：两项目主流程 SVG（huobao-drama 六步 / Jellyfish 六步含 ready 门禁）</p>
+</div>
+<p>这条差异决定了两者的<span class="hl">真实产物形态不同</span>：用 Huobao，最后拿到的是一段可播放、可下载的成片；用 Jellyfish，最后拿到的是一批镜头级视频素材，仍需自行到剪映等工具完成剪辑与拼接。Jellyfish 在 README 首页写「一键导出成片」，但其 roadmap 与前端目录都证实末段尚未实现，宣传与实现之间存在差距。</p>
+
+<!-- ============ 05 架构 ============ -->
+<h2 id="s5"><span class="n">05</span>架构对比</h2>
+<p class="lead">两者都是「前端 + 后端 + 基础设施」三层，但后端范式与部署取向相反：Huobao 走轻量单文件 + 桌面壳 + 内嵌二进制；Jellyfish 走企业级 Web 栈 + 独立 Worker + 外部组件。</p>
+<div class="panel">
+<svg viewBox="0 0 900 300">
+  <defs>
+    <linearGradient id="cCard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2029"/><stop offset="1" stop-color="#151a22"/></linearGradient>
+    <linearGradient id="cBand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#241e12"/><stop offset="1" stop-color="#1d1810"/></linearGradient>
+    <marker id="cm" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><path d="M0,0.5 L7.5,4 L0,7.5 z" fill="#e8925a"/></marker>
+  </defs>
+  <!-- 列名 -->
+  <text x="220" y="30" fill="#e8925a" font-size="14" font-weight="700" text-anchor="middle">Huobao Drama</text>
+  <text x="680" y="30" fill="#54c7b4" font-size="14" font-weight="700" text-anchor="middle">Jellyfish</text>
+  <!-- Huobao 栈 -->
+  <g filter="url(#mSh)">
+    <rect x="60" y="44" width="320" height="50" rx="12" fill="url(#cCard)" stroke="#33404e"/>
+    <rect x="60" y="104" width="320" height="56" rx="12" fill="url(#cCard)" stroke="#33404e"/>
+    <rect x="60" y="172" width="320" height="50" rx="12" fill="url(#cCard)" stroke="#4d7a72"/>
+    <rect x="60" y="232" width="320" height="46" rx="12" fill="url(#cBand)" stroke="#8a7440"/>
+  </g>
+  <text x="78" y="74" fill="#eef2f6" font-size="12.5" font-weight="600">前端 · Nuxt 3 + Vue 3</text>
+  <text x="78" y="128" fill="#c9d1da" font-size="12">后端 · Hono + Drizzle + <tspan fill="#e8925a">Mastra(4 Agent)</tspan></text>
+  <text x="78" y="146" fill="#8b95a2" font-size="10.5">SQLite 单文件库（WAL）</text>
+  <text x="78" y="202" fill="#54c7b4" font-size="12.5" font-weight="600">桌面壳 · Electron</text>
+  <text x="78" y="246" fill="#e5c376" font-size="11.5">内嵌 · FFmpeg + 媒体 + 技能副本</text>
+  <text x="78" y="264" fill="#c9a95c" font-size="10.5">零外部依赖，单机运行</text>
+  <!-- Jellyfish 栈 -->
+  <g filter="url(#mSh)">
+    <rect x="520" y="44" width="320" height="50" rx="12" fill="url(#cCard)" stroke="#33404e"/>
+    <rect x="520" y="104" width="320" height="56" rx="12" fill="url(#cCard)" stroke="#33404e"/>
+    <rect x="520" y="172" width="320" height="50" rx="12" fill="url(#cCard)" stroke="#8a7440"/>
+    <rect x="520" y="232" width="320" height="46" rx="12" fill="url(#cBand)" stroke="#8a7440"/>
+  </g>
+  <text x="538" y="74" fill="#eef2f6" font-size="12.5" font-weight="600">前端 · React 18 + Vite</text>
+  <text x="538" y="128" fill="#c9d1da" font-size="12">后端 · FastAPI + <tspan fill="#54c7b4">LangChain/LangGraph</tspan></text>
+  <text x="538" y="146" fill="#8b95a2" font-size="10.5">MySQL（唯一可信数据源）</text>
+  <text x="538" y="202" fill="#e5c376" font-size="12.5" font-weight="600">Celery Worker（独立进程）</text>
+  <text x="538" y="246" fill="#e5c376" font-size="11.5">外部 · MySQL + Redis + RustFS</text>
+  <text x="538" y="264" fill="#c9a95c" font-size="10.5">Docker Compose 编排多组件</text>
+  <!-- 中部分隔与注解 -->
+  <line x1="450" y1="44" x2="450" y2="278" stroke="#2a323e" stroke-width="1" stroke-dasharray="3 4"/>
+  <g font-size="10.5" fill="#8b95a2" text-anchor="middle">
+    <text x="450" y="150">轻量 / 桌面 / 内嵌</text>
+    <text x="450" y="165">↔</text>
+    <text x="450" y="180">企业级 / Web / 外部化</text>
+  </g>
+</svg>
+<p class="src">来源：两项目架构 SVG（huobao-drama 内嵌基础设施 / Jellyfish 外部组件 + Worker）</p>
+</div>
+<p>两种范式各有取舍：Huobao 的 SQLite + 内嵌 FFmpeg + 桌面壳让<span class="hl">个人用户零运维上手</span>，代价是水平扩展与多用户能力缺失；Jellyfish 的 MySQL + Celery + Redis + RustFS 是<span class="hl-p">标准企业级自托管组合</span>，任务系统与状态语义因此更健壮，代价是部署与运维门槛更高，且仍停留在单机形态。</p>
+
+<!-- ============ 06 成熟度雷达 ============ -->
+<h2 id="s6"><span class="n">06</span>能力成熟度对比（雷达）</h2>
+<p class="lead">八维相对评分（0–5，自估用于横向比较，非基准测试）。从图形看，两项目的优势区域互不重叠：Huobao 的高分轴对应 Jellyfish 的低分轴，唯一双方都得分较高的维度是视觉一致性体系。</p>
+<div class="panel">
+<svg viewBox="0 0 900 420">
+  <defs>
+    <marker id="rm" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><path d="M0,0.5 L7.5,4 L0,7.5 z" fill="#8b95a2"/></marker>
+  </defs>
+  <!-- 网格环 -->
+  <g fill="none" stroke="#242c37" stroke-width="1">
+    <polygon points="450,65 556.1,108.9 600,215 556.1,321.1 450,365 343.9,321.1 300,215 343.9,108.9"/>
+    <polygon points="450,95 534.9,130.1 570,215 534.9,299.9 450,335 365.1,299.9 330,215 365.1,130.1"/>
+    <polygon points="450,125 513.6,151.4 540,215 513.6,278.6 450,305 386.4,278.6 360,215 386.4,151.4"/>
+    <polygon points="450,155 492.4,172.6 510,215 492.4,257.4 450,275 407.6,257.4 390,215 407.6,172.6"/>
+    <polygon points="450,185 471.2,193.8 480,215 471.2,236.2 450,245 428.8,236.2 420,215 428.8,193.8"/>
+  </g>
+  <!-- 轴 -->
+  <g stroke="#2e3844" stroke-width="1">
+    <line x1="450" y1="215" x2="450" y2="65"/>
+    <line x1="450" y1="215" x2="556.1" y2="108.9"/>
+    <line x1="450" y1="215" x2="600" y2="215"/>
+    <line x1="450" y1="215" x2="556.1" y2="321.1"/>
+    <line x1="450" y1="215" x2="450" y2="365"/>
+    <line x1="450" y1="215" x2="343.9" y2="321.1"/>
+    <line x1="450" y1="215" x2="300" y2="215"/>
+    <line x1="450" y1="215" x2="343.9" y2="108.9"/>
+  </g>
+  <!-- Huobao 多边形 -->
+  <polygon points="450,200 545.5,119.5 495,215 513.6,278.6 450,335 354.5,310.5 315,215 439.4,204.4" fill="rgba(232,146,90,.14)" stroke="#e8925a" stroke-width="2"/>
+  <!-- Jellyfish 多边形 -->
+  <polygon points="450,80 471.2,193.8 585,215 545.5,310.5 450,350 418.2,246.8 420,215 428.8,193.8" fill="rgba(84,199,180,.13)" stroke="#54c7b4" stroke-width="2"/>
+  <!-- 轴标签 -->
+  <g font-size="12" fill="#a6b0bd">
+    <text x="450" y="50" text-anchor="middle">商用友好度</text>
+    <text x="575" y="86" text-anchor="start">链路完整度</text>
+    <text x="612" y="219" text-anchor="start">工程纪律</text>
+    <text x="575" y="338" text-anchor="start">任务系统</text>
+    <text x="450" y="386" text-anchor="middle">一致性体系</text>
+    <text x="330" y="338" text-anchor="end">国内模型适配</text>
+    <text x="288" y="219" text-anchor="end">桌面/分发</text>
+    <text x="330" y="86" text-anchor="end">自动化测试</text>
+  </g>
+  <!-- 顶点分值 -->
+  <g font-size="10" font-family="Consolas,monospace">
+    <text x="450" y="200" fill="#e8925a" text-anchor="middle">0.5</text>
+    <text x="545.5" y="119.5" fill="#e8925a" text-anchor="middle">4.5</text>
+    <text x="495" y="215" fill="#e8925a" text-anchor="middle">1.5</text>
+    <text x="513.6" y="278.6" fill="#e8925a" text-anchor="middle">3</text>
+    <text x="450" y="335" fill="#e8925a" text-anchor="middle">4</text>
+    <text x="354.5" y="310.5" fill="#e8925a" text-anchor="middle">4.5</text>
+    <text x="315" y="215" fill="#e8925a" text-anchor="middle">4.5</text>
+    <text x="450" y="80" fill="#54c7b4" text-anchor="middle">4.5</text>
+    <text x="471.2" y="193.8" fill="#54c7b4" text-anchor="middle">1</text>
+    <text x="585" y="215" fill="#54c7b4" text-anchor="middle">4.5</text>
+    <text x="545.5" y="310.5" fill="#54c7b4" text-anchor="middle">4.5</text>
+    <text x="450" y="350" fill="#54c7b4" text-anchor="middle">4.5</text>
+    <text x="418.2" y="246.8" fill="#54c7b4" text-anchor="middle">1.5</text>
+    <text x="420" y="215" fill="#54c7b4" text-anchor="middle">1</text>
+  </g>
+  <g font-size="12.5">
+    <text x="250" y="408" fill="#e8925a">■ Huobao Drama</text>
+    <text x="430" y="408" fill="#54c7b4">■ Jellyfish</text>
+  </g>
+</svg>
+<p class="src">来源：两项目成熟度评估（huobao-drama 七项 / Jellyfish 六项）合并归一为八维</p>
+</div>
+<div class="callout"><span class="hcell">Huobao</span> 在链路完整度、国内模型适配、桌面分发三项得分高，在商用友好度、工程纪律、自动化测试三项得分低；<span class="jcell">Jellyfish</span> 相反，在商用友好度、工程纪律、任务系统三项得分高，在链路完整度、国内模型适配、桌面分发三项得分低。双方唯一都得分较高的维度是视觉一致性体系，说明两者都把跨镜头视觉统一当作核心难点。</div>
+
+<!-- ============ 07 纪律与风险 ============ -->
+<h2 id="s7"><span class="n">07</span>工程纪律与风险对比</h2>
+<div class="panel">
+<table class="t" style="margin:0">
+  <tr><th style="width:20%">主题</th><th><span class="hcell">Huobao Drama</span></th><th><span class="jcell">Jellyfish</span></th></tr>
+  <tr><td>工程纪律</td><td>零配置启动、configs 死配置分离、CLAUDE.md 为 AI 协作写约定；<span class="hl-r">但无测试 / lint 脚本</span></td><td><span class="hl-g">AGENTS.md 成文完成标准</span>、文档三区分层、状态语义 / 页面边界固化；有少量测试</td></tr>
+  <tr><td>任务系统</td><td>统一 sys_task 表 + 异步轮询；<span class="hl-r">视频轮询无硬上限（近 50 分钟）</span></td><td>GenerationTask 唯一可信数据源 + 两级取消 + 双运行时隔离；设计更严谨</td></tr>
+  <tr><td>商用风险</td><td><span class="hl-r">CC BY-NC-SA 禁商用，须作者书面许可</span></td><td>Apache-2.0，可商用，但要注意署名与改动声明</td></tr>
+  <tr><td>供应锁定</td><td>首页引导用户使用自家 api.firemux.com Key，存在供应锁定倾向</td><td>模型接入清单短，但架构层「模型无关」</td></tr>
+  <tr><td>多用户</td><td><span class="hl-r">无 users 表，单机</span></td><td><span class="hl-r">无多租户权限，单机 Compose</span></td></tr>
+  <tr><td>主要短板</td><td>禁商用 + 无测试 + 生成全外置</td><td>止步于素材、无成片导出、模型接入少</td></tr>
+</table>
+</div>
+
+<!-- ============ 08 选型 ============ -->
+<h2 id="s8"><span class="n">08</span>选型建议：按使用目标选择</h2>
+<p class="lead">选型取决于使用目标，而非项目优劣。</p>
+<div class="panel">
+<svg viewBox="0 0 900 300">
+  <defs>
+    <linearGradient id="dH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#221a14"/><stop offset="1" stop-color="#1a1510"/></linearGradient>
+    <linearGradient id="dJ" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#122020"/><stop offset="1" stop-color="#0f1a1a"/></linearGradient>
+    <marker id="dmC" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><path d="M0,0.5 L7.5,4 L0,7.5 z" fill="#e8925a"/></marker>
+    <marker id="dmP" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><path d="M0,0.5 L7.5,4 L0,7.5 z" fill="#54c7b4"/></marker>
+  </defs>
+  <!-- 决策起点 -->
+  <rect x="350" y="24" width="200" height="46" rx="12" fill="#1a2029" stroke="#3a4450" filter="url(#mSh)"/>
+  <text x="450" y="52" fill="#eef2f6" font-size="13" font-weight="600" text-anchor="middle">使用目标？</text>
+  <!-- 左支 Huobao -->
+  <path d="M370,70 C300,110 250,120 220,150" stroke="#e8925a" stroke-width="1.6" fill="none" marker-end="url(#dmC)"/>
+  <text x="150" y="96" fill="#e8925a" font-size="12">自用 / 出片 / 桌面</text>
+  <g filter="url(#mSh)">
+    <rect x="40" y="150" width="320" height="120" rx="14" fill="url(#dH)" stroke="#5a4331"/>
+    <rect x="40" y="150" width="5" height="120" rx="2.5" fill="#e8925a"/>
+  </g>
+  <text x="60" y="178" fill="#e8925a" font-size="13.5" font-weight="700">选 Huobao Drama</text>
+  <g font-size="12" fill="#d5dce4">
+    <text x="60" y="202">· 安装后可直接生成成片</text>
+    <text x="60" y="222">· 用国内厂商 / 桌面分发</text>
+    <text x="60" y="242">· 接受仅个人 / 非商用</text>
+    <text x="60" y="262" fill="#8b95a2">前提：商用须先取得作者书面许可</text>
+  </g>
+  <!-- 右支 Jellyfish -->
+  <path d="M530,70 C600,110 650,120 680,150" stroke="#54c7b4" stroke-width="1.6" fill="none" marker-end="url(#dmP)"/>
+  <text x="750" y="96" fill="#54c7b4" font-size="12" text-anchor="end">商用 / 长期 / 协作</text>
+  <g filter="url(#mSh)">
+    <rect x="540" y="150" width="320" height="120" rx="14" fill="url(#dJ)" stroke="#35564f"/>
+    <rect x="540" y="150" width="5" height="120" rx="2.5" fill="#54c7b4"/>
+  </g>
+  <text x="560" y="178" fill="#54c7b4" font-size="13.5" font-weight="700">选 Jellyfish</text>
+  <g font-size="12" fill="#d5dce4">
+    <text x="560" y="202">· 作为可商用产品底座</text>
+    <text x="560" y="222">· 重视工程纪律 / 可演进</text>
+    <text x="560" y="242">· 能自行补成片导出</text>
+    <text x="560" y="262" fill="#8b95a2">需自接更多模型、自己做剪辑链路</text>
+  </g>
+</svg>
+<p class="src">来源：两项目综合判断章节（竞争位置 / 最大优势 / 最大短板）</p>
+</div>
+<div class="callout green">若目标是<span class="hl">既商用又要成片</span>，两者单独使用都不完整：可把 Jellyfish 当底座（可商用 + 工程扎实），再参考 Huobao 的 FFmpeg 合成与桌面分发思路补上成片导出环节。两者许可证在此组合下互不冲突（Apache-2.0 允许派生，但 Huobao 的 CC BY-NC-SA 代码本身仍不能商用，只能借鉴其设计与二进制调用方式）。</div>
+
+<div class="footer" id="src-list">
+  <p style="color:var(--tx2);font-weight:600;margin-bottom:6px">来源索引</p>
+  <ul>
+    <li>Huobao Drama 仓库（v4.0.5）：README.zh-CN.md、CLAUDE.md、backend/src/{agents,services/db} —— 见 huobao-drama-analysis.html</li>
+    <li>Jellyfish 仓库（v0.3.2）：README.md、AGENTS.md、site/content/docs/architecture、backend/app/core/integrations —— 见 Jellyfish项目分析.html</li>
+    <li>对比所用维度与评分均来自上述两份代码级分析，成熟度评分为横向比较用的相对自估，非独立基准测试</li>
+  </ul>
+</div>
+
+</div>
+<script>
+  const links=[...document.querySelectorAll('.toc a')];
+  const secs=links.map(l=>document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  const spy=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id));
+      }
+    });
+  },{rootMargin:'-20% 0px -65% 0px'});
+  secs.forEach(s=>spy.observe(s));
+</script>
+</body>
+</html>

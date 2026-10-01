@@ -7,6 +7,9 @@ display_name: "技能迁移"
 display_name_en: "Skill Migrate"
 ---
 
+> **Buddy 审查备注（2026-09-30）**：三个迁移 / 安装类技能触发区分——本技能把 Anthropic 官方格式 SKILL.md 单技能改造装进 WorkBuddy；给 GitHub 仓库链接安装用 `gh-skill-install`；Claude Code 文件夹批量迁移用 `claude-skills-migrator`。
+
+
 # 技能迁移（Claude skills → WorkBuddy）
 
 将 Anthropic 官方 skill 仓库里的技能改造成 WorkBuddy 可用格式并安装到用户级技能目录

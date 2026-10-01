@@ -6,7 +6,8 @@
 确认「速查提到的组件 ↔ 模板 CSS ↔ 模板正文示例」三方对齐，且模板自身不违反硬规则。
 
 用法：
-    python scripts/check-template.py
+    python scripts/check-template.py              # 仅校验模板自身
+    python scripts/check-template.py <交付HTML>   # 额外扫描某份交付物（硬规则）
 
 退出码：0 = 全过；1 = 有问题（逐条打印）。
 """
@@ -69,12 +70,15 @@ css2_cls = set(re.findall(r'\.([A-Za-z][-\w]*)', css2))
 def refs(path):
     """提取 SKILL.md 里反引号中的 CSS 类名。
 
-    方法调用（`.save(`、`.add_html_to_document(`）与叙述性占位（`1.x`）不是类名，跳过。
+    方法调用（`.save(`、`.add_html_to_document(`）与叙述性占位（`1.x`）不是类名，跳过；
+    含 `/` 的反引号段是文件路径（`~/.workbuddy/MEMORY.md`、`../references/x.md`），整段跳过。
     """
     s = io.open(path, encoding='utf-8').read()
     out = set()
     for m in re.finditer(r'`([^`]+)`', s):
         seg = m.group(1)
+        if '/' in seg:
+            continue
         for c in re.finditer(r'\.([a-z][a-z0-9-]*)', seg):
             if seg[c.end():c.end() + 1] in ('(', '_'):
                 continue
@@ -109,16 +113,42 @@ defined_fn = sorted({int(n) for n in re.findall(r'class="fn-n">(\d+)<', html)})
 orphan = sorted(set(sup_seq) - set(defined_fn))
 check('每个角标都有对应脚注条目', not orphan, '无条目: %s' % orphan if orphan else '')
 
-print('\n=== 5. 硬规则 ===')
-banned = ['一句话', '核心要点', '核心观点', '核心结论', '解读：', '干货', '硬核', '保姆级']
-# 只查「被当作标签用」的情形（文本节点开头 / 冒号收尾），句中正常使用（如「核心结论须有 ① 级来源支撑」）不算违规
-label_hit = [w for w in banned if re.search(r'>\s*%s|%s[：:]' % (re.escape(w), re.escape(w)), body)]
-check('正文无空标签 / 营销词（标签位）', not label_hit, '命中: %s' % label_hit if label_hit else '')
-emoji = re.findall(r'[\U0001F300-\U0001FAFF\u26A1\u2705\u2728]', body)
-check('正文无 emoji 装点', not emoji, '命中: %s' % emoji if emoji else '')
-read_labels = ['机制推演', '路径推演', '逻辑梳理', '推导过程', '速读', '洞察']
-hit2 = [w for w in read_labels if w in body]
-check('无读法 / 修辞动作标签', not hit2, '命中: %s' % hit2 if hit2 else '')
+def check_hard_rules(text, label):
+    """硬规则机检：空标签 / 营销词、emoji、读法标签、对话口吻标题、口语词。
+    对照 SKILL.md 八.5 / 八.9；text 应为已剥注释的 body。"""
+    print('\n=== 5. 硬规则（%s）===' % label)
+    banned = ['一句话', '核心要点', '核心观点', '核心结论', '解读：', '干货', '硬核', '保姆级',
+              '说到底', '总而言之']
+    # 只查「被当作标签用」的情形（文本节点开头 / 冒号收尾），句中正常使用（如「核心结论须有 ① 级来源支撑」）不算违规
+    label_hit = [w for w in banned if re.search(r'>\s*%s|%s[：:]' % (re.escape(w), re.escape(w)), text)]
+    check('正文无空标签 / 营销词（标签位）', not label_hit, '命中: %s' % label_hit if label_hit else '')
+    emoji = re.findall(r'[\U0001F300-\U0001FAFF\u26A1\u2705\u2728]', text)
+    check('正文无 emoji 装点', not emoji, '命中: %s' % emoji if emoji else '')
+    read_labels = ['机制推演', '路径推演', '逻辑梳理', '推导过程', '速读', '洞察']
+    hit2 = [w for w in read_labels if w in text]
+    check('无读法 / 修辞动作标签', not hit2, '命中: %s' % hit2 if hit2 else '')
+    # 对话口吻 callout 标题（八.5）：「X，一句话说清」「X 怎么看」「X 值得注意的一点」「X 的别人没有」
+    tone = ['一句话说清', '怎么看', '值得注意的一点', '别人没有']
+    titles = re.findall(r'<h[34][^>]*>(.*?)</h[34]>', text, re.S)
+    bad_t = [t for t in titles if any(x in t for x in tone)]
+    check('callout 标题无对话口吻包装（八.5）', not bad_t, '命中: %s' % bad_t if bad_t else '')
+    # 口语化禁用词（八.9）：全文本扫描
+    slang = ['盘一遍', '走一遍', '串起来', '过一遍', '压到底', '一路压到', '站不住', '摆出来',
+             '没人做', '活样本', '拿得出', '算得清', '拍得了板', '一眼看穿', '一目了然', '谁轻谁重',
+             '得由', '得走', '免得', '省事', '兜底', '打底', '补上', '另一头', '这一头', '两头之间',
+             '两边对起来', '差得不少', '差很多', '混着来', '搅在一起', '没写清楚', '没说清',
+             '让你挑', '随便你选', '这块', '那块']
+    hit_s = [w for w in slang if w in text]
+    check('正文无口语化禁用词（八.9）', not hit_s, '命中: %s' % hit_s if hit_s else '')
+
+
+check_hard_rules(body, '模板')
+_scan = sys.argv[1] if len(sys.argv) > 1 else None
+if _scan and os.path.isfile(_scan):
+    _raw = io.open(_scan, encoding='utf-8').read()
+    _b = re.sub(r'<!--.*?-->', '', _raw[_raw.find('</style>'):], flags=re.S) if '</style>' in _raw else _raw
+    check_hard_rules(_b, '交付物 %s' % os.path.basename(_scan))
+
 
 print('\n=== 6. 技能自我进化机制（第十六节 + feedback-log）===')
 skill_main = io.open(SKILLS[0], encoding='utf-8').read()

@@ -59,6 +59,24 @@ body::after{
   color:var(--text-dim);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:20px;
   border:1px solid transparent;transition:.2s;white-space:nowrap}
 .nav-links a:hover{color:var(--cyan);border-color:var(--border);background:rgba(0,245,212,.06)}
+
+/* ── 左侧目录面板 .toc：长报告（大节 ≥4 或正文超两屏）默认加，窄屏自动隐藏 ──
+   结构：<div class="layout"><nav class="toc">…</nav><main>…</main></div>
+   面板式（2026-09-28 定）：通栏深色边栏，自带更暗底色 + 右分隔线，sticky 占满视口高；
+   .toc-title 前主色竖条；项名 = 章节原词 + 序号（「一、…」，与正文标题一字不差）；
+   滚动时当前节加 .on 高亮（一行小脚本）。配套正文头部 .eyebrow / .chips 见下。 */
+.layout{display:flex;align-items:flex-start;gap:0}
+.toc{width:232px;flex:0 0 232px;position:sticky;top:0;height:100vh;overflow-y:auto;display:none;background:rgba(0,0,0,.28);border-right:1px solid var(--border);padding:30px 14px}
+.toc .toc-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;letter-spacing:3px;margin:0 6px 16px}
+.toc .toc-title::before{content:"";width:4px;height:16px;background:var(--cyan);border-radius:2px;flex:0 0 auto}
+.toc a{display:block;padding:7px 10px;font-size:13px;color:var(--text-dim);border-left:2px solid transparent;border-radius:0 6px 6px 0;text-decoration:none;line-height:1.5}
+.toc a:hover{color:var(--text-main);background:rgba(0,245,212,.06)}
+.toc a.on{color:var(--cyan);border-left-color:var(--cyan);background:rgba(0,245,212,.1)}
+@media(min-width:1100px){.toc{display:block}}
+/* ── 正文头部：眉题 + 标签行（口径信息归头部不散进正文） ── */
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:2.5px;color:var(--cyan);text-transform:uppercase;margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.chip{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:4px 12px;font-size:12.5px;color:var(--text-dim)}
 .part-banner{
   position:relative;
   margin:80px auto 40px;max-width:1360px;padding:0;scroll-margin-top:80px;
@@ -281,7 +299,24 @@ footer .wm{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;borde
   </div>
 </nav>
 
+<div class="layout">
+
+<nav class="toc" aria-label="目录">
+  <div class="toc-title">目录</div>
+  <a class="on" href="#cover">摘要</a>
+  <a href="#p1">市场盘子</a>
+  <a href="#p2">需求与供给</a>
+  <a href="#p3">竞争与机会</a>
+  <a href="#src">来源</a>
+</nav>
+
 <main>
+<!-- .eyebrow + .chips 示例：正文头部（眉题 → 大标题 → 简介 → 标签行，口径信息归头部不散进正文） -->
+<div class="eyebrow">CYX-HTML-STYLE · 暗色科技风</div>
+<div class="chips">
+  <span class="chip">口径：示例标签</span>
+  <span class="chip">数据截至：示例</span>
+</div>
 <!-- ═══════════ 摘要 ═══════════ -->
 <section class="page" id="cover">
   <div class="page-head">
@@ -501,6 +536,8 @@ footer .wm{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;borde
   </div>
 </section>
 </main>
+
+</div>
 
 <!-- ═══════════ 页脚 · 来源 ═══════════ -->
 <footer id="src">

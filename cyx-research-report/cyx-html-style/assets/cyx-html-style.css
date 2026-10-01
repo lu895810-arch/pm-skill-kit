@@ -57,6 +57,26 @@ body::after{
   color:var(--text-dim);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:20px;
   border:1px solid transparent;transition:.2s;white-space:nowrap}
 .nav-links a:hover{color:var(--cyan);border-color:var(--border);background:rgba(0,245,212,.06)}
+
+/* ── 左侧目录面板 .toc：长报告（大节 ≥4 或正文超两屏）默认加，窄屏自动隐藏 ──
+   结构：<div class="layout"><nav class="toc">…</nav><main>…</main></div>
+   面板式（2026-09-28 定）：通栏深色边栏，自带更暗底色 + 右分隔线，sticky 占满视口高；
+   .toc-title 前主色竖条；项名 = 章节原词 + 序号（「一、…」，与正文标题一字不差，序号不单独调暗）；
+   滚动时当前节加 .active（主色文字 + 左 3px 主色竖线 + 主色 10% 底）高亮，一行小脚本。
+   ⚠️ .layout > main 已覆盖 main 的居中规则，别再给 .layout 或 main 加 max-width/margin:auto。
+   配套正文头部 .eyebrow / .chips 见下。 */
+.layout{display:flex;align-items:flex-start;gap:0}
+.toc{width:196px;flex:0 0 196px;position:sticky;top:0;height:100vh;overflow-y:auto;display:none;background:var(--bg-deep,rgba(0,0,0,.28));border-right:1px solid var(--border);padding:22px 14px 30px 26px}
+.toc .toc-title{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:700;letter-spacing:2px;color:var(--text-main,#e6edf3);margin:0;padding:0 0 18px}
+.toc .toc-title::before{content:"";width:4px;height:16px;background:var(--cyan);border-radius:2px;flex:0 0 auto}
+.toc a{display:block;padding:9px 10px;font-size:14px;color:var(--text-dim);border-left:3px solid transparent;border-radius:0 8px 8px 0;text-decoration:none;line-height:1.45}
+.toc a:hover{color:var(--text-main,#e6edf3);background:rgba(0,245,212,.06)}
+.toc a.on,.toc a.active{color:var(--cyan);border-left-color:var(--cyan);background:rgba(0,245,212,.1);font-weight:600}
+@media(min-width:1100px){.toc{display:block}}
+/* ── 正文头部：眉题 + 标签行（与左侧目录面板同一版式，口径信息归头部不散进正文） ── */
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:2.5px;color:var(--cyan);text-transform:uppercase;margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.chip{background:var(--panel,#1c2230);border:1px solid var(--border);border-radius:8px;padding:4px 12px;font-size:12.5px;color:var(--text-dim)}
 .part-banner{
   position:relative;
   margin:80px auto 40px;max-width:1360px;padding:0;scroll-margin-top:80px;
@@ -81,6 +101,11 @@ body::after{
 .part-banner h1{grid-area:title;font-size:clamp(23px,3vw,34px);font-weight:800;letter-spacing:1px;line-height:1.2;margin:0}
 .part-banner .pdesc{grid-area:desc;color:var(--text-dim);font-size:14px}
 main{max-width:1360px;margin:0 auto;padding:0 64px 80px}
+/* 有左侧目录面板时，正文不许再居中——一居中就离开侧栏，中间空出一大块（2026-09-28 Lulu 反馈「间距大」的根因）。
+   此时正文紧贴侧栏起排，宽度靠内容列封顶控制。 */
+.layout > main{flex:1;min-width:0;max-width:none;margin:0;padding:26px 36px 90px 28px}
+.layout > main > *{max-width:1280px}
+@media(max-width:820px){.layout > main{padding:20px 18px 70px}}
 .page{
   position:relative; margin:0 auto 36px; border-radius:18px; overflow:hidden;
   background:linear-gradient(160deg,rgba(15,22,56,.92),rgba(10,14,39,.96));

@@ -6,6 +6,9 @@ display_name: "Claude 技能迁移器"
 display_name_en: "Claude Skills Migrator"
 ---
 
+> **Buddy 审查备注（2026-09-30）**：三个迁移 / 安装类技能触发区分——本技能把 Claude Code 自定义技能文件夹批量迁移到 WorkBuddy；给 GitHub 仓库链接安装用 `gh-skill-install`；Anthropic 单技能改造用 `skill-migrate`。
+
+
 # Claude Skills Migrator
 
 批量将用户自定义的 Claude Code 技能目录改造成 WorkBuddy 可用格式，并安装到 `~/.workbuddy/skills/`。

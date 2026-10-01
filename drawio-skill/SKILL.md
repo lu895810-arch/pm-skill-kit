@@ -9,6 +9,9 @@ owner: "Buddy（Lulu 的数字搭子）"
 upstream: "Agents365-ai/drawio-skill"
 ---
 
+> **Buddy 审查备注（2026-09-30）**：图工具三选一参考——本技能产出可编辑 `.drawio` 文件（团队协作、后续易改）；要自包含 HTML / SVG / PNG 交付图用 `buddy-diagram-design`；要架构 / 流程 / 时序图并导出 PNG 用 `archify`。
+
+
 > **Buddy 适配（2026-09-24）**：已装入 WorkBuddy。主 CLI 为 `scripts/diagramctl.py`，用托管 `python3` 运行。核心工作流仅用标准库、离线可用；PNG/SVG 导出需本机 draw.io 桌面 CLI（≥v30），可选。AI 品牌图标抓取走公开 CDN，按需触发。
 
 # Draw.io Architecture Studio

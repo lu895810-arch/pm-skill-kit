@@ -9,6 +9,9 @@ buddy-adapted: "2026-09-24"
 owner: "Buddy（Lulu 的数字搭子）"
 ---
 
+> **Buddy 审查备注（2026-09-30）**：三个迁移 / 安装类技能触发区分——本技能处理“用户给 GitHub 仓库链接，要安装并适配成 WorkBuddy 技能”（含安全审计）；`skill-migrate` 处理“Anthropic 官方格式 SKILL.md 单技能改造安装”；`claude-skills-migrator` 处理“Claude Code 自定义技能文件夹批量迁移”。给链接装用本技能，给 Anthropic 单技能用 skill-migrate，给整文件夹批量用 claude-skills-migrator。
+
+
 # 安装并适配 GitHub Agent Skill 到 WorkBuddy
 
 用户丢来 GitHub 仓库（或一列仓库），要装成 WorkBuddy 技能并适配。按下面流程走，
