@@ -64,11 +64,11 @@ This group solves one thing: you hold a pile of raw material — whitepapers, we
 
 A complete short-drama production line, from story outline through storyboard and art. Each step's output feeds the next; art style, characters, and reconciliation rules stay consistent across steps.
 
-- **cyx-shuohao-outline** (upstream) — Story outline. Sets total episode count, per-episode duration, and genre; splits main scenes; plans character groups and hook distribution. Input can be novel text or a handwritten scene list.
-- **cyx-shuohao-characters** (midstream) — Character design. Generates character cards, fixes the art style, runs consistency checks, and outputs `cast.json`.
-- **cyx-shuohao-script** (midstream) — Screenplay. Produces per-episode scripts from the outline, with character-reference reconciliation and hook-claim checks, outputting `script.json`.
-- **cyx-shuohao-storyboard** (downstream) — Storyboard. Splits the script into storyboard shots; requires the script to run.
-- **cyx-shuohao-art** (companion) — Art and scene image generation. Generates scene images matching each character's style; prompt-level bans on character names keep compositing from cross-contaminating files.
+- **shuohao-outline** (upstream) — Story outline. Sets total episode count, per-episode duration, and genre; splits main scenes; plans character groups and hook distribution. Input can be novel text or a handwritten scene list.
+- **shuohao-characters** (midstream) — Character design. Generates character cards, fixes the art style, runs consistency checks, and outputs `cast.json`.
+- **shuohao-script** (midstream) — Screenplay. Produces per-episode scripts from the outline, with character-reference reconciliation and hook-claim checks, outputting `script.json`.
+- **shuohao-storyboard** (downstream) — Storyboard. Splits the script into storyboard shots; requires the script to run.
+- **shuohao-art** (companion) — Art and scene image generation. Generates scene images matching each character's style; prompt-level bans on character names keep compositing from cross-contaminating files.
 
 ## 5. Short-drama creation pipeline (the short-drama series)
 

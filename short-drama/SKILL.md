@@ -7,7 +7,7 @@ owner: "Buddy（Lulu 的数字搭子）"
 upstream: "https://github.com/zenstory-ai/drama-skills"
 ---
 
-> **Buddy 审查备注（2026-09-30）**：本套与 `cyx-shuohao-*` 同属 AI 短剧创作，但定位不同——`short-drama-*` 走“文件即事实”的重流程（11 个独立技能 + 本地 Dashboard + Python 校验），适合需要完整工程化管线、跨阶段追溯的项目；`cyx-shuohao-*` 走“一键产出 JSON + 评审报告”（自带质量门、零 API key），适合快速出大纲 / 角色 / 剧本 / 分镜。调用时：要做成体系的工程项目选本套，要快速出单份产物选 `cyx-shuohao-*`。
+> **Buddy 审查备注（2026-09-30）**：本套与 `shuohao-*` 同属 AI 短剧创作，但定位不同——`short-drama-*` 走“文件即事实”的重流程（11 个独立技能 + 本地 Dashboard + Python 校验），适合需要完整工程化管线、跨阶段追溯的项目；`shuohao-*` 走“一键产出 JSON + 评审报告”（自带质量门、零 API key），适合快速出大纲 / 角色 / 剧本 / 分镜。调用时：要做成体系的工程项目选本套，要快速出单份产物选 `shuohao-*`。
 
 
 > **Buddy 适配（2026-09-29）**：本技能由 WorkBuddy 安装并适配。运行时依赖 `python3`（托管 3.13.12）、`node`（托管 22.22）与 `ffmpeg`/`ffprobe`（本机已装）。`short-drama-produce` 调用外部付费 API（OpenAI / 火山方舟 Seedance / MiniMax），凭据从环境变量读取，需先确认再生产；`short-drama-edit/assets/remotion` 的字幕叠加为可选功能，需另行 `npm install`。
